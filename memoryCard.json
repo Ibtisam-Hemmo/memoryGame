@@ -1,0 +1,32 @@
+{
+    "type": "object",
+    "properties": {
+        "cards": {
+            "type": "array",
+            "items": {
+                "id": "number",
+                "content":"string",
+                "isFlipped": "boolean",
+                "isMatched": "boolean"
+            },
+            "required": [
+                "id",
+                "content",
+                "isFlipped",
+                "isMatched"
+            ]
+        },
+        "moves": "number",
+        "gameStatus": {
+            "enum": [
+                "in-progress",
+                "completed"
+            ]
+        }
+    },
+    "required": [
+        "cards",
+        "moves",
+        "gameStatus"
+    ]
+}
