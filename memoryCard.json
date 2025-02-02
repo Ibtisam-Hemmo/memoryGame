@@ -4,29 +4,107 @@
         "cards": {
             "type": "array",
             "items": {
-                "id": "number",
-                "content":"string",
-                "isFlipped": "boolean",
-                "isMatched": "boolean"
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "letter",
+                            "image",
+                            "icon"
+                        ]
+                    },
+                    "isFlipped": {
+                        "type": "boolean"
+                    },
+                    "lastFlipTime": {
+                        "type": "integer"
+                    },
+                    "isMatched": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "id",
+                    "content",
+                    "type",
+                    "isFlipped",
+                    "lastFlipTime",
+                    "isMatched"
+                ]
+            }
+        },
+        "numberOfMoves": {
+            "type": "integer"
+        },
+        "countDownTimer": {
+            "type": "integer"
+        },
+        "highScores": {
+            "type": "object",
+            "properties": {
+                "easy": {
+                    "type": "integer"
+                },
+                "medium": {
+                    "type": "integer"
+                },
+                "hard": {
+                    "type": "integer"
+                }
             },
             "required": [
-                "id",
-                "content",
-                "isFlipped",
-                "isMatched"
+                "easy",
+                "medium",
+                "hard"
             ]
         },
-        "moves": "number",
         "gameStatus": {
+            "type": "string",
             "enum": [
-                "in-progress",
-                "completed"
+                "inProgress",
+                "completed",
+                "failed"
+            ]
+        },
+        "level": {
+            "type": "string",
+            "enum": [
+                "easy",
+                "medium",
+                "hard"
+            ]
+        },
+        "gridSize": {
+            "type": "string",
+            "enum": [
+                "4x4",
+                "8x8",
+                "12x12"
+            ]
+        },
+        "theme": {
+            "type": "string",
+            "enum": [
+                "letters",
+                "images",
+                "icons"
             ]
         }
     },
     "required": [
         "cards",
-        "moves",
-        "gameStatus"
+        "numberOfMoves",
+        "countDownTimer",
+        "gameStatus",
+        "level",
+        "gridSize",
+        "theme"
     ]
 }
