@@ -1,61 +1,96 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { GameContextType, Card } from '../types/gameType';
-import { cards as initialCards } from '../assets/Cards';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { GameContextType, GameState } from '../types/gameType';
 import { gameLogic } from '../utils/gameLogic';
 import { saveGameToLocalStorage } from '../utils/localStorage';
-import { shuffle } from '../utils/shuffleFunction';
 import { initializeGame } from '../utils/initializeGame';
+import { generateCards, getGridSize, getTimerByLevel } from '../utils/generateCards';
 
 const initialState: GameContextType = {
-    cards: [],
-    moves: 0,
-    gameStatus: 'in-progress',
+    gameState: {
+        cards: [],
+        flippedCards: [],
+        moves: 0,
+        gameStatus: "inProgress",
+        theme: "letters",
+        level: "easy",
+        gridSize: getGridSize("easy"),
+        countDownTimer: getTimerByLevel("easy")
+    },
     flipCard: () => { },
     resetGame: () => { },
 };
 
-const GameContext = createContext<GameContextType>(initialState); //undefined type
+const GameContext = createContext<GameContextType>(initialState);
+
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const {
-        cards: savedCards,
-        flippedCards: initialFlippedCards,
-        moves: initialMoves,
-        gameStatus: initialGameStatus
-    } = initializeGame();
-    const [cards, setCards] = useState<Card[]>(savedCards);
-    const [flippedCards, setFlippedCards] = useState<number[]>(initialFlippedCards);
-    const [moves, setMoves] = useState<number>(initialMoves);
-    const [gameStatus, setGameStatus] = useState<'in-progress' | 'completed'>(initialGameStatus);
+    const initialGameState = useMemo(() => {
+        return initializeGame(
+            initialState.gameState.theme,
+            initialState.gameState.level
+        );
+    }, []);
+
+    const [gameState, setGameState] = useState(initialGameState)
     // const [lockBoard, setLockBoard] = useState<boolean>(false);
 
     const flipCard = (cardId: number) => {
-        gameLogic(cardId, cards, flippedCards, moves,
-            setCards, setFlippedCards, setGameStatus, setMoves);
-        // gameLogic(cardId, cards, flippedCards, moves,lockBoard,
-        //     setCards, setFlippedCards, setGameStatus, setMoves, setLockBoard);
+        if (gameState.gameStatus !== "inProgress") {
+            return;
+        }
+        gameLogic(
+            cardId,
+            gameState,
+            setGameState
+        );
     };
 
     const resetGame = () => {
-        setCards(shuffle(initialCards));
-        setMoves(0);
-        setGameStatus('in-progress');
-        setFlippedCards([]);
-        saveGameToLocalStorage(cards, [], 0, 'in-progress');
+        setGameState({
+            ...gameState,
+            cards: generateCards(gameState.theme, gameState.level),
+            moves: 0,
+            gameStatus: "inProgress",
+            flippedCards: [],
+            gridSize: getGridSize(gameState.level),
+            countDownTimer: getTimerByLevel(gameState.level)
+        });
     };
 
     useEffect(() => {
-        saveGameToLocalStorage(cards, flippedCards, moves, gameStatus);
-    }, [cards, flippedCards, moves, gameStatus]);
+        if (gameState.gameStatus === "inProgress" && gameState.countDownTimer > 0) {
+            const interval = setInterval(() => {
+                setGameState((prevState) => ({
+                    ...prevState,
+                    countDownTimer: prevState.countDownTimer - 1,
+                }));
+            }, 1000);
+
+            return () => clearInterval(interval);
+
+        } else if (gameState.countDownTimer === 0) {
+            setGameState((prevState) => ({
+                ...prevState,
+                gameStatus: "failed",
+            }));
+        }
+    }, [gameState.countDownTimer, gameState.gameStatus]);
+
+    const previousGameState = useRef<GameState | null>(null);
+
+    useEffect(() => {
+        if (!previousGameState.current || JSON.stringify(gameState) !== JSON.stringify(previousGameState.current)) {
+            saveGameToLocalStorage(gameState);
+            previousGameState.current = gameState; // Update the reference after saving
+        }
+    }, [gameState]);
 
     return (
         <GameContext.Provider
             value={{
-                cards,
-                moves,
-                gameStatus,
+                gameState,
                 flipCard,
-                resetGame,
+                resetGame
             }}
         >
             {children}
@@ -64,3 +99,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 };
 
 export const useGameContext = () => useContext(GameContext);
+
+
+// TODO: useMemo + track rendering + proiler exte
