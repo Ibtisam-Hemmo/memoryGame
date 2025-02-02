@@ -1,16 +1,18 @@
 import { Card, Levels, Themes } from "../types/gameType";
 import { shuffle } from "./shuffleFunction.js";
+import { apple, orange, banana, strawberry, grape } from '../assets/images/index.ts';
 
 export const generateCards = (theme: Themes, level: Levels) => {
     console.log('theme, level: ', theme, level);
+
     const themes = {
         letters: ["A", "B", "C", "D", "E",
             "F", "G", "H", "I", "J",
             "K", "L", "M", "N", "O"],
-            icons: ["🔥", "🌟", "🚀", "💎", "🎯",
-                 "🔔", "💥", "🌈", "💣", "🍀",
-                  "🍕", "🎁", "💌", "🎤", "📱", "🌙"],
-            images: []
+        icons: ["🔥", "🌟", "🚀", "💎", "🎯",
+            "🔔", "💥", "🌈", "💣", "🍀",
+            "🍕", "🎁", "💌", "🎤", "📱", "🌙"],
+        images: [apple, orange, banana, strawberry, grape]
     };
 
     const levelConfig = {
@@ -23,8 +25,8 @@ export const generateCards = (theme: Themes, level: Levels) => {
     const selectedContent = themes[theme].slice(0, Math.ceil(cardsCount / 2));
 
     const cards: Card[] = selectedContent.flatMap((content, index) => [
-        { id: index * 2, type: content, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
-        { id: index * 2 + 1, type: content, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
+        { id: index * 2, type: theme, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
+        { id: index * 2 + 1, type: theme, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
     ]);
 
     return shuffle(cards);
