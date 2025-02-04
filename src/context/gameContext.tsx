@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { GameContextType, GameState } from '../types/gameType';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { GameContextType, GameState, Levels, Themes } from '../types/gameType';
 import { gameLogic } from '../utils/gameLogic';
 import { saveGameToLocalStorage } from '../utils/localStorage';
 import { initializeGame } from '../utils/initializeGame';
@@ -18,36 +18,27 @@ const initialState: GameContextType = {
     },
     flipCard: () => { },
     resetGame: () => { },
+    startNewGame: () => { }
 };
 
 const GameContext = createContext<GameContextType>(initialState);
 
-
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const initialGameState = useMemo(() => {
-        return initializeGame(
-            initialState.gameState.theme,
-            initialState.gameState.level
-        );
-    }, []);
-
-    const [gameState, setGameState] = useState(initialGameState)
-    // const [lockBoard, setLockBoard] = useState<boolean>(false);
+    const [gameState, setGameState] = useState(() => {
+        return initializeGame(initialState.gameState.theme, initialState.gameState.level);
+    });
 
     const flipCard = (cardId: number) => {
         if (gameState.gameStatus !== "inProgress") {
             return;
         }
-        gameLogic(
-            cardId,
-            gameState,
-            setGameState
-        );
+        gameLogic(cardId, gameState, setGameState);
     };
 
     const resetGame = () => {
         setGameState({
-            ...gameState,
+            theme:gameState.theme,
+            level:gameState.level,
             cards: generateCards(gameState.theme, gameState.level),
             moves: 0,
             gameStatus: "inProgress",
@@ -55,6 +46,20 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             gridSize: getGridSize(gameState.level),
             countDownTimer: getTimerByLevel(gameState.level)
         });
+    };
+
+    const startNewGame = (theme: Themes, level: Levels) => {
+        setGameState({
+            theme:theme,
+            level:level,
+            cards: generateCards(theme, level),
+            moves: 0,
+            gameStatus: "inProgress",
+            flippedCards: [],
+            gridSize: getGridSize(level),
+            countDownTimer: getTimerByLevel(level)
+        });
+        console.log("here is selected theme and level ", theme, level);
     };
 
     useEffect(() => {
@@ -67,7 +72,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }, 1000);
 
             return () => clearInterval(interval);
-
         } else if (gameState.countDownTimer === 0) {
             setGameState((prevState) => ({
                 ...prevState,
@@ -90,7 +94,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             value={{
                 gameState,
                 flipCard,
-                resetGame
+                resetGame,
+                startNewGame
             }}
         >
             {children}
@@ -99,6 +104,3 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 };
 
 export const useGameContext = () => useContext(GameContext);
-
-
-// TODO: useMemo + track rendering + proiler exte
