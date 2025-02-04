@@ -1,0 +1,56 @@
+.modal {
+    font-family: "Cookie", serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+}
+
+.modalContent p {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modalContent button {
+    font-family: "Cookie", serif;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.modalContent button:hover {
+    background-color: #45a049;
+}
+
+.modalContent button:first-child {
+    background-color: #f44336;
+}
+
+.modalContent button:first-child:hover {
+    background-color: #da190b;
+}
+
+.modalContent button:focus {
+    outline: none;
+}
