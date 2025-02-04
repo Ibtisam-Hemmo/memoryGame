@@ -2,7 +2,7 @@ type Card = {
     id: number,
     type: string,
     content: string,
-    lastFlipTime:number,
+    lastFlipTime: number,
     isFlipped: boolean,
     isMatched: boolean,
 }
@@ -23,9 +23,9 @@ interface GameState {
     flippedCards: number[];
     moves: number;
     gameStatus: GameStatus;
-    theme:Themes;
-    level:Levels;
-    gridSize:GridSize;
+    theme: Themes;
+    level: Levels;
+    gridSize: GridSize;
     countDownTimer: number;
 }
 
@@ -33,6 +33,7 @@ type GameContextType = {
     gameState: GameState,
     flipCard: (id: number) => void,
     resetGame: () => void,
+    startNewGame: (theme: Themes, level: Levels) => void
 };
 
 
