@@ -1,24 +1,15 @@
-import React from 'react';
-import styles from '../styles/savedGameModal.module.scss';
+import ConfirmationModal from './ConfirmationModal';
 
-type Props = {
-  handleContinue: () => void;
-  handleNewGame: () => void;
-};
-
-const SavedGameModal: React.FC<Props> = ({ handleContinue, handleNewGame }) => {
-  return (
-    <div className={styles.modal}>
-      <div className={styles.modalContent}>
-        <p>
-          You still have a saved game. <br />
-          Do you want to continue playing it or start a new one?
-        </p>
-        <button onClick={handleContinue}>Continue</button>
-        <button onClick={handleNewGame}>Start New Game</button>
-      </div>
-    </div>
-  );
+const SavedGameModal: React.FC<{ handleContinue: () => void; handleNewGame: () => void }> = ({ handleContinue, handleNewGame }) => {
+    return (
+        <ConfirmationModal
+            message="You still have a saved game. Do you want to continue playing it or start a new one?"
+            confirmText="Continue"
+            cancelText="Start New Game"
+            onConfirm={handleContinue}
+            onCancel={handleNewGame}
+        />
+    );
 };
 
 export default SavedGameModal;

@@ -1,4 +1,4 @@
-import styles from '../pages/first.module.scss';
+import styles from '../styles/settings.module.scss';
 import { ChoiceGroup as ChoiceGroupType } from '../types/componentType';
 
 const ChoiceGroup = <T extends string>({

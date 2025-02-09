@@ -1,45 +1,44 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo2 from "../assets/gameLogo2.jpg";
-import styles from "./first.module.scss";
-import ChoiceGroup from "../components/ChoiceGroup";
+
 import { useGameContext } from "../context/gameContext";
 import { Themes, Levels } from "../types/gameType";
-import SavedGameModal from "../components/SavedGameModal";
+import { ChoiceGroup, SavedGameModal } from "../components";
+import Logo2 from "../assets/gameLogo2.jpg";
+import styles from "../styles/settings.module.scss";
+
 
 const SettingsPage = () => {
-  const { gameState, startNewGame, resetGame } = useGameContext();
+  const { gameState, startNewGame } = useGameContext();
 
   const [selectedTheme, setSelectedTheme] = useState(gameState.theme);
   const [selectedDifficulty, setSelectedDifficulty] = useState(gameState.level);
-  const [showModal, setShowModal] = useState(!!gameState); //check game status
+  const [showModal, setShowModal] = useState(gameState.gameStatus === "inProgress");
 
   const navigate = useNavigate();
 
-  const newGameBoard = (theme: Themes, level: Levels) => {
-    startNewGame(theme, level);
+  const handleNewGameStart = () => {
+    startNewGame(selectedTheme, selectedDifficulty);
     navigate("/game");
-
-  }
+  };
 
   const handleContinue = () => {
     setShowModal(false);
-    navigate("/game")
+    navigate("/game");
   };
 
   const handleNewGame = () => {
-    resetGame();
     setShowModal(false);
   };
 
   return (
     <div className={styles.mainContainer}>
-      {showModal &&
+      {showModal && (
         <SavedGameModal
           handleContinue={handleContinue}
           handleNewGame={handleNewGame}
         />
-      }
+      )}
       <div className={styles.logoContainer}>
         <img src={Logo2} alt="Game Logo" className={styles.logo} />
       </div>
@@ -63,7 +62,8 @@ const SettingsPage = () => {
       <button
         type="submit"
         className={styles.btn}
-        onClick={() => newGameBoard(selectedTheme, selectedDifficulty)}>
+        onClick={handleNewGameStart}
+      >
         Start New Game
       </button>
     </div>

@@ -1,11 +1,47 @@
-import React from 'react'
+import { useGameContext } from '../context/gameContext';
+import styles from '../styles/GamePage.module.scss'
+import { Card } from '../types/gameType';
 
-type Props = {}
+const GameBoard = () => {
+  const { gameState, flipCard } = useGameContext();
+  const renderCardContent = (card: Card) => {
+    if (card.isFlipped || card.isMatched) {
+      return card.type === "images" ? (
+        <img
+          src={card.content}
+          alt="Card"
+          style={{ objectFit: "cover", height: "100%" }}
+        />
+      ) : (
+        card.content
+      );
+    }
+    return "?";
+  };
 
-const GameBoard = (props: Props) => {
   return (
-    <div>GameBoard</div>
-  )
+    <>
+      <div className={styles.container}>
+        <div
+          className={styles.grid}
+          style={{
+            gridTemplateColumns: `repeat(${gameState.gridSize.columns}, minmax(60px, 1fr))`,
+            gridTemplateRows: `repeat(${gameState.gridSize.rows}, minmax(60px, 1fr))`,
+          }}
+        >
+          {gameState.cards.map((card) => (
+            <div
+              key={card.id}
+              onClick={() => !card.isMatched && !card.isFlipped && flipCard(card.id)}
+              className={`${styles.cellFace} ${card.isFlipped || card.isMatched ? styles.flipped : ""}`}
+            >
+              {renderCardContent(card)}
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </>)
 }
 
 export default GameBoard

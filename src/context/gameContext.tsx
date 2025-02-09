@@ -16,6 +16,7 @@ const initialState: GameContextType = {
         gridSize: getGridSize("easy"),
         countDownTimer: getTimerByLevel("easy")
     },
+    timeIncreaseEffect: false,
     flipCard: () => { },
     resetGame: () => { },
     startNewGame: () => { }
@@ -25,20 +26,24 @@ const GameContext = createContext<GameContextType>(initialState);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [gameState, setGameState] = useState(() => {
-        return initializeGame(initialState.gameState.theme, initialState.gameState.level);
+        return initializeGame(
+            initialState.gameState.theme,
+            initialState.gameState.level);
     });
+
+    const [timeIncreaseEffect, setTimeIncreaseEffect] = useState(false);
 
     const flipCard = (cardId: number) => {
         if (gameState.gameStatus !== "inProgress") {
             return;
         }
-        gameLogic(cardId, gameState, setGameState);
+        gameLogic(cardId, gameState, setTimeIncreaseEffect, setGameState);
     };
 
     const resetGame = () => {
         setGameState({
-            theme:gameState.theme,
-            level:gameState.level,
+            theme: gameState.theme,
+            level: gameState.level,
             cards: generateCards(gameState.theme, gameState.level),
             moves: 0,
             gameStatus: "inProgress",
@@ -50,8 +55,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const startNewGame = (theme: Themes, level: Levels) => {
         setGameState({
-            theme:theme,
-            level:level,
+            theme: theme,
+            level: level,
             cards: generateCards(theme, level),
             moves: 0,
             gameStatus: "inProgress",
@@ -85,14 +90,21 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         if (!previousGameState.current || JSON.stringify(gameState) !== JSON.stringify(previousGameState.current)) {
             saveGameToLocalStorage(gameState);
-            previousGameState.current = gameState; // Update the reference after saving
+            previousGameState.current = gameState;
         }
     }, [gameState]);
+
+    useEffect(() => {
+        if (gameState.gameStatus === "failed") {
+            localStorage.removeItem("memoryGame");
+        }
+    }, [gameState.gameStatus])
 
     return (
         <GameContext.Provider
             value={{
                 gameState,
+                timeIncreaseEffect,
                 flipCard,
                 resetGame,
                 startNewGame
