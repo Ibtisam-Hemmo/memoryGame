@@ -6,17 +6,18 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
     const savedGame = getGameFromLocalStorage();
     console.log('savedGame: ', savedGame);
 
-    if (savedGame) {
+    if (savedGame && savedGame.gameStatus !== "failed") {
         return {
             ...savedGame,
-            theme: theme,
-            level: level,
+            theme: savedGame.theme || theme,
+            level: savedGame.level || level,
             cards: savedGame.cards.map((card: Card) =>
                 card.isMatched ? card : { ...card, isFlipped: false }
             ),
             flippedCards: [],
         };
     }
+
     return {
         flippedCards: [],
         moves: 0,
@@ -28,3 +29,5 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
         countDownTimer: getTimerByLevel(level)
     };
 };
+
+//fix the return when there is no game
