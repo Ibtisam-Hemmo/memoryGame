@@ -1,0 +1,260 @@
+main {
+    margin: 0 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    font-weight: bold;
+    background-color: #f7c73e;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #caa02a;
+    transform: scale(1.05);
+}
+
+.gameContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    border: 1px solid black;
+    padding: 0.5rem;
+    width: 55%;
+}
+
+.grid {
+    display: grid;
+    gap: 10px;
+    perspective: 1000px;
+}
+
+.cellFace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.2s ease-in-out, background-color 0.3s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.flipped {
+    background-color: pink;
+    font-weight: bold;
+}
+
+.gameTitle {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 4rem);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        gap: 5px;
+    }
+
+    .cellFace {
+        font-size: 1rem;
+    }
+
+    .gameInfo .title {
+        font-size: 1rem;
+    }
+}
+
+.footer {
+    display: flex;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    width: 90%;
+    justify-content: center;
+}
+
+.gameInfo {
+    background-color: black;
+    box-sizing: border-box;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoItem {
+    display: flex;
+    margin: 10px 0;
+    font-size: 1.7rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeEffect {
+    position: absolute;
+    background-color: aliceblue;
+    color: green;
+    font-size: 2rem;
+    padding: 0.5rem;
+    font-weight: bold;
+    animation: fadeUp 1s ease-out;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.failureScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.failureScreen h2 {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+}
+
+.failureScreen p {
+    font-size: 3.2rem;
+    margin-bottom: 4.5rem;
+}
+
+.failureScreen button {
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    padding: 0.8rem 1.5rem;
+    font-size: 3.2rem;
+}
+
+.failureScreen button:hover {
+    background: #e84118;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 70%;
+    }
+
+    .gameInfo {
+        padding: 0.3rem;
+    }
+
+    .failureScreen h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .failureScreen p {
+        font-size: 2.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .failureScreen button {
+        padding: 1rem 2rem;
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gameContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .gameInfo {
+        padding: 0.6rem;
+        flex-direction: row;
+    }
+
+    .grid {
+        gap: 3px;
+    }
+
+    .cellFace {
+        font-size: 0.9rem;
+    }
+
+    .gameTitle {
+        font-size: 2.5rem;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .failureScreen h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .failureScreen p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .failureScreen button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.2rem;
+    }
+}
