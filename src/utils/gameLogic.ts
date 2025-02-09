@@ -3,6 +3,7 @@ import { Card, GameState } from "../types/gameType";
 export const gameLogic = (
     cardId: number,
     gameState: GameState,
+    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
     setGameState: React.Dispatch<React.SetStateAction<GameState>>
 ) => {
     const { cards, flippedCards } = gameState;
@@ -23,7 +24,12 @@ export const gameLogic = (
     }));
 
     if (updatedFlippedCards.length === 2) {
-        checkForMatched(updatedFlippedCards, updatedCards, gameState.countDownTimer, setGameState);
+        checkForMatched(
+            updatedFlippedCards,
+            updatedCards,
+            gameState.countDownTimer,
+            setGameState,
+            setTimeIncreaseEffect);
     }
 };
 
@@ -31,7 +37,8 @@ export const checkForMatched = (
     flippedCards: number[],
     cards: Card[],
     countdownTimer: number,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>
+    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
+    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     const [firstCardId, secondCardId] = flippedCards;
 
@@ -56,6 +63,8 @@ export const checkForMatched = (
         if (timeDifference <= 2000) {
             console.log("matched quickly")
             newTime += 3;
+            setTimeIncreaseEffect(true);
+            setTimeout(() => setTimeIncreaseEffect(false), 9000); //TODO:change to 1000
         }
 
         setGameState((prevState) => ({
