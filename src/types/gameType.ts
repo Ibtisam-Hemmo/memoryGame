@@ -31,6 +31,7 @@ interface GameState {
 
 type GameContextType = {
     gameState: GameState,
+    timeIncreaseEffect:boolean,
     flipCard: (id: number) => void,
     resetGame: () => void,
     startNewGame: (theme: Themes, level: Levels) => void
