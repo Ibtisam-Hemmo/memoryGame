@@ -8,7 +8,9 @@ export const generateCards = (theme: Themes, level: Levels) => {
     const themes = {
         letters: ["A", "B", "C", "D", "E",
             "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O"],
+            "K", "L", "M", "N", "O", "a", 
+            "b", "c", "d", "e", "f", "g", 
+            "h"],
         icons: ["🔥", "🌟", "🚀", "💎", "🎯",
             "🔔", "💥", "🌈", "💣", "🍀",
             "🍕", "🎁", "💌", "🎤", "📱", "🌙"],
@@ -16,9 +18,9 @@ export const generateCards = (theme: Themes, level: Levels) => {
     };
 
     const levelConfig = {
-        easy: { cardsCount: 8 },
+        easy: { cardsCount: 12 },
         medium: { cardsCount: 20 },
-        hard: { cardsCount: 25 },
+        hard: { cardsCount: 36 },
     };
 
     const { cardsCount } = levelConfig[level];
@@ -36,13 +38,13 @@ export const generateCards = (theme: Themes, level: Levels) => {
 export const getGridSize = (level: Levels) => {
     switch (level) {
         case "easy":
-            return { rows: 4, columns: 4 };
+            return { rows: 3, columns: 4 };
         case "medium":
             return { rows: 4, columns: 5 };
         case "hard":
-            return { rows: 5, columns: 5 };
+            return { rows: 6, columns: 6 };
         default:
-            return { rows: 4, columns: 4 };
+            return { rows: 3, columns: 4 };
     }
 };
 
