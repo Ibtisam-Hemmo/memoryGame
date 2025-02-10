@@ -1,4 +1,5 @@
 import { Card, GameState } from "../types/gameType";
+import { playSound, sounds } from "./soundManager";
 
 export const gameLogic = (
     cardId: number,
@@ -64,7 +65,8 @@ export const checkForMatched = (
             console.log("matched quickly")
             newTime += 3;
             setTimeIncreaseEffect(true);
-            setTimeout(() => setTimeIncreaseEffect(false), 9000); //TODO:change to 1000
+            playSound(sounds.timeBonus)
+            setTimeout(() => setTimeIncreaseEffect(false), 1000); 
         }
 
         setGameState((prevState) => ({

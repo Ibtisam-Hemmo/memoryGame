@@ -4,6 +4,7 @@ import { gameLogic } from '../utils/gameLogic';
 import { saveGameToLocalStorage } from '../utils/localStorage';
 import { initializeGame } from '../utils/initializeGame';
 import { generateCards, getGridSize, getTimerByLevel } from '../utils/generateCards';
+import { playSound, sounds } from '../utils/soundManager';
 
 const initialState: GameContextType = {
     gameState: {
@@ -14,7 +15,8 @@ const initialState: GameContextType = {
         theme: "letters",
         level: "easy",
         gridSize: getGridSize("easy"),
-        countDownTimer: getTimerByLevel("easy")
+        countDownTimer: getTimerByLevel("easy"),
+        highScores: { easy: 0, medium: 0, hard: 0 }
     },
     timeIncreaseEffect: false,
     flipCard: () => { },
@@ -38,6 +40,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             return;
         }
         gameLogic(cardId, gameState, setTimeIncreaseEffect, setGameState);
+        playSound(sounds.flipCard)
     };
 
     const resetGame = () => {
@@ -49,7 +52,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             gameStatus: "inProgress",
             flippedCards: [],
             gridSize: getGridSize(gameState.level),
-            countDownTimer: getTimerByLevel(gameState.level)
+            countDownTimer: getTimerByLevel(gameState.level),
+            highScores: gameState.highScores
         });
     };
 
@@ -62,8 +66,10 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             gameStatus: "inProgress",
             flippedCards: [],
             gridSize: getGridSize(level),
-            countDownTimer: getTimerByLevel(level)
+            countDownTimer: getTimerByLevel(level),
+            highScores: gameState.highScores
         });
+        playSound(sounds.gameStart)
         console.log("here is selected theme and level ", theme, level);
     };
 
@@ -77,7 +83,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }, 1000);
 
             return () => clearInterval(interval);
-        } else if (gameState.countDownTimer === 0) {
+        }
+        // else if(gameState.countDownTimer === 8){
+        //     playSound(sounds.countDownTimeri)
+        // }
+         else if (gameState.countDownTimer === 0) {
             setGameState((prevState) => ({
                 ...prevState,
                 gameStatus: "failed",
@@ -97,8 +107,22 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         if (gameState.gameStatus === "failed") {
             localStorage.removeItem("memoryGame");
+            playSound(sounds.lose)
         }
-    }, [gameState.gameStatus])
+        if (gameState.gameStatus === "completed") {
+            setGameState((prevState) => {
+                const { level, moves, highScores } = prevState;
+
+                if (highScores[level] === 0 || moves < highScores[level]!) {
+                    const newHighScores = { ...highScores, [level]: moves };
+                    return { ...prevState, highScores: newHighScores };
+                }
+
+                return prevState;
+            });
+            playSound(sounds.win)
+        }
+    }, [gameState.gameStatus]);
 
     return (
         <GameContext.Provider
