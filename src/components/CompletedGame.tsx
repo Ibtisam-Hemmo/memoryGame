@@ -1,21 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/GamePage.module.scss'
-
+import { randomWinnerQuote } from '../utils/quotes';
+import { useGameContext } from '../context/gameContext';
+import winImage from '../assets/yay.gif';
 
 const CompletedGame = () => {
+    const { gameState } = useGameContext();
     const navigate = useNavigate();
 
-    const handleNewgame = () => {
+    const onPlayAgain = () => {
         navigate("/")
     }
 
     return (
         <>
             <div className={styles.failureScreen}>
-                <h2>Congrats</h2>
-                <p>“You have done it Hero”</p>
-                <button onClick={() => handleNewgame()}>Play another</button>
+                <img src={winImage} alt='win Image'/>
+                <p>{randomWinnerQuote}</p>
+                <p>Your highest Score is: {gameState.highScores[gameState.level]}</p>
+                <button onClick={() => onPlayAgain()}>Play another</button>
             </div>
         </>
 
