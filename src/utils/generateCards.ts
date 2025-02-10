@@ -1,6 +1,13 @@
 import { Card, Levels, Themes } from "../types/gameType";
 import { shuffle } from "./shuffleFunction.js";
-import { apple, orange, banana, strawberry, grape } from '../assets/images/index.ts';
+import {
+    strawberry, yogiBear, winnieThePooh,
+    tweetyBird, tigger, spongeBob,
+    scoobyDoo, bunny, popeye,
+    patrickStar, mickeyMouse, helloKitty,
+    duck, Tom, Shrek,
+    PapaSmurf, jerry, mcCormick
+} from '../assets/images/index.ts';
 
 export const generateCards = (theme: Themes, level: Levels) => {
     console.log('theme, level: ', theme, level);
@@ -8,13 +15,18 @@ export const generateCards = (theme: Themes, level: Levels) => {
     const themes = {
         letters: ["A", "B", "C", "D", "E",
             "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O", "a", 
-            "b", "c", "d", "e", "f", "g", 
+            "K", "L", "M", "N", "O", "a",
+            "b", "c", "d", "e", "f", "g",
             "h"],
         icons: ["🔥", "🌟", "🚀", "💎", "🎯",
             "🔔", "💥", "🌈", "💣", "🍀",
             "🍕", "🎁", "💌", "🎤", "📱", "🌙"],
-        images: [apple, orange, banana, strawberry, grape]
+        images: [strawberry, yogiBear, winnieThePooh,
+            tweetyBird, tigger, spongeBob,
+            scoobyDoo, bunny, popeye,
+            patrickStar, mickeyMouse, helloKitty,
+            duck, Tom, Shrek,
+            PapaSmurf, jerry, mcCormick]
     };
 
     const levelConfig = {
