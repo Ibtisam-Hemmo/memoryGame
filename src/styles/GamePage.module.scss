@@ -75,20 +75,6 @@ main {
     font-size: clamp(2rem, 4vw, 4rem);
 }
 
-@media (max-width: 768px) {
-    .grid {
-        gap: 5px;
-    }
-
-    .cellFace {
-        font-size: 1rem;
-    }
-
-    .gameInfo .title {
-        font-size: 1rem;
-    }
-}
-
 .footer {
     display: flex;
     margin: 2rem 0;
@@ -193,6 +179,18 @@ main {
 
     .gameInfo {
         padding: 0.3rem;
+    }
+
+    .grid {
+        gap: 5px;
+    }
+
+    .cellFace {
+        font-size: 1rem;
+    }
+
+    .gameInfo .title {
+        font-size: 1rem;
     }
 
     .failureScreen h2 {
