@@ -15,6 +15,7 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
                 card.isMatched ? card : { ...card, isFlipped: false }
             ),
             flippedCards: [],
+            highScores: savedGame.highScores
         };
     }
 
@@ -26,7 +27,8 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
         level,
         cards: generateCards(theme, level),
         gridSize: getGridSize(level),
-        countDownTimer: getTimerByLevel(level)
+        countDownTimer: getTimerByLevel(level),
+        highScores: savedGame?.highScores || { easy: 0, medium: 0, hard: 0 }
     };
 };
 

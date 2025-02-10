@@ -25,7 +25,7 @@ const GameInfo = () => {
             </div>
             <div className={styles.infoItem}>
                 <span> High Score:</span>
-                <strong>{0}</strong>
+                <strong>{gameState.highScores[gameState.level]}</strong>
             </div>
         </div>
     );

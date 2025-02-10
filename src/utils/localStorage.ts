@@ -1,6 +1,8 @@
 import { GameState } from "../types/gameType";
 import { generateCards, getGridSize } from "./generateCards";
 
+const GAME_VERSION = "1.2";
+
 export const saveGameToLocalStorage = (gameState: GameState) => {
     const gameData = {
         version: GAME_VERSION,
@@ -9,7 +11,6 @@ export const saveGameToLocalStorage = (gameState: GameState) => {
     localStorage.setItem('memoryGame', JSON.stringify(gameData));
 }
 
-const GAME_VERSION = "1.1";
 export const getGameFromLocalStorage = (): GameState | null => {
     const savedData = localStorage.getItem("memoryGame");
     if (!savedData) return null;
@@ -23,12 +24,13 @@ export const getGameFromLocalStorage = (): GameState | null => {
         const migratedData = {
             version: GAME_VERSION,
             state: {
-                ...parsedData,
+                ...parsedData.state,
                 level: parsedData.level || "easy",
                 theme: parsedData.theme || "letters",
                 cards: generateCards(parsedData.theme || "letters", parsedData.level || "easy"),
                 gridSize: parsedData.gridSize || getGridSize(parsedData.level || "easy"),
                 countDownTimer: parsedData.countDownTimer || 150,
+                highScores:parsedData.highScores || { easy: 0, medium: 0, hard: 0 }
             },
         };
 

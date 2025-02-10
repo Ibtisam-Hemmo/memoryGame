@@ -18,6 +18,12 @@ type GridSize = {
     columns: number;
 };
 
+type highScores = {
+    easy: number;
+    medium: number;
+    hard: number;
+}
+
 interface GameState {
     cards: Card[];
     flippedCards: number[];
@@ -27,11 +33,12 @@ interface GameState {
     level: Levels;
     gridSize: GridSize;
     countDownTimer: number;
+    highScores: highScores;
 }
 
 type GameContextType = {
     gameState: GameState,
-    timeIncreaseEffect:boolean,
+    timeIncreaseEffect: boolean,
     flipCard: (id: number) => void,
     resetGame: () => void,
     startNewGame: (theme: Themes, level: Levels) => void
