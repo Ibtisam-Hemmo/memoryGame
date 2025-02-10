@@ -65,14 +65,16 @@ main {
 }
 
 .flipped {
-    background-color: pink;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
     font-weight: bold;
 }
 
 .gameTitle {
-    margin: 0;
+    margin: 0 0 1rem 0 ;
     text-align: center;
-    font-size: clamp(2rem, 4vw, 4rem);
+    font-size: clamp(3.5rem, 4vw, 4rem);
 }
 
 .footer {
@@ -136,12 +138,10 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
     text-align: center;
     font-size: 1.5rem;
 }
@@ -151,9 +151,27 @@ main {
     margin-bottom: 2rem;
 }
 
+.failureScreen img {
+    width: 20%
+}
+
 .failureScreen p {
-    font-size: 3.2rem;
-    margin-bottom: 4.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+}
+
+#tryAgainButton{
+    background: #052a75;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    padding: 0.8rem 1.5rem;
+    font-size: 2.2rem;
+    &:hover {
+        background: #e84118;
+    }
 }
 
 .failureScreen button {
@@ -164,12 +182,15 @@ main {
     cursor: pointer;
     transition: background 0.3s ease;
     padding: 0.8rem 1.5rem;
-    font-size: 3.2rem;
+    font-size: 2.2rem;
 }
 
 .failureScreen button:hover {
     background: #e84118;
 }
+
+
+
 
 @media (max-width: 768px) {
 
@@ -206,6 +227,10 @@ main {
     .failureScreen button {
         padding: 1rem 2rem;
         font-size: 2.2rem;
+    }
+
+    .failureScreen img {
+        width: 30%
     }
 }
 
@@ -254,5 +279,9 @@ main {
     .failureScreen button {
         padding: 0.8rem 1.5rem;
         font-size: 1.2rem;
+    }
+
+    .failureScreen img {
+        width: 40%
     }
 }
