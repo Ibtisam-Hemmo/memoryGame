@@ -1,5 +1,7 @@
 import { useGameContext } from "../context/gameContext";
 import styles from "../styles/GamePage.module.scss";
+import time from '../assets/timer.gif';
+import highScore from '../assets/high-score.png';
 
 const GameInfo = () => {
     const { gameState, timeIncreaseEffect } = useGameContext();
@@ -13,18 +15,18 @@ const GameInfo = () => {
     return (
         <div className={styles.gameInfo}>
             <div className={styles.infoItem}>
-                <span>Timer:</span>
+                <img src={time} alt="count down timer" />
                 <strong>{formatTime(gameState.countDownTimer)} s</strong>
                 {timeIncreaseEffect && (
-                    <span className={styles.timeEffect}>+3</span>
+                    <span className={styles.timeEffect}>+3 s</span>
                 )}
             </div>
             <div className={styles.infoItem}>
-                <span>Moves:</span>
+                <span>MOVES:</span>
                 <strong>{gameState.moves}</strong>
             </div>
             <div className={styles.infoItem}>
-                <span> High Score:</span>
+                <img src={highScore} alt="high score"  className={styles.highScore}/>
                 <strong>{gameState.highScores[gameState.level]}</strong>
             </div>
         </div>
