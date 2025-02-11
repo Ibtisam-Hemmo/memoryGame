@@ -68,6 +68,7 @@
         "gameStatus": {
             "type": "string",
             "enum": [
+                "paused",
                 "inProgress",
                 "completed",
                 "failed"
