@@ -55,13 +55,31 @@ main {
     justify-content: center;
     aspect-ratio: 1;
     background-color: black;
-    color: white;
-    font-size: 1.5rem;
+    color: #f46255;
+    font-size: 2rem;
+    font-weight: bold;
     transition: transform 0.2s ease-in-out, background-color 0.3s;
 
     &:hover {
         transform: scale(1.05);
     }
+}
+
+@keyframes cardEntry {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.cellFace {
+    opacity: 0;
+    animation: cardEntry 0.5s ease-in-out forwards;
 }
 
 .flipped {
@@ -72,7 +90,7 @@ main {
 }
 
 .gameTitle {
-    margin: 0 0 1rem 0 ;
+    margin: 0 0 1rem 0;
     text-align: center;
     font-size: clamp(3.5rem, 4vw, 4rem);
 }
@@ -86,11 +104,12 @@ main {
 }
 
 .gameInfo {
-    background-color: black;
+    background-color: white;
+    ;
     box-sizing: border-box;
-    color: white;
+    color: black;
     padding: 1rem;
-    border-radius: 8px;
+    border: 1px solid;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -103,16 +122,32 @@ main {
     font-size: 1.7rem;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+}
+
+.infoItem span {
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.infoItem strong {
+    color: #f46255;
+    letter-spacing: 2px;
+}
+
+.highScore {
+    width: 50px
 }
 
 .timeEffect {
     position: absolute;
-    background-color: aliceblue;
-    color: green;
-    font-size: 2rem;
-    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid;
+    color: #3f3e8a;
+    font-size: 2.5rem;
+    padding: 0.8rem;
     font-weight: bold;
-    animation: fadeUp 1s ease-out;
+    animation: fadeUp 2s ease-out;
 }
 
 @keyframes fadeUp {
@@ -123,7 +158,7 @@ main {
 
     100% {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-40px);
     }
 }
 
@@ -160,7 +195,7 @@ main {
     margin-bottom: 2.5rem;
 }
 
-#tryAgainButton{
+#tryAgainButton {
     background: #052a75;
     color: white;
     border: none;
@@ -169,6 +204,7 @@ main {
     transition: background 0.3s ease;
     padding: 0.8rem 1.5rem;
     font-size: 2.2rem;
+
     &:hover {
         background: #e84118;
     }
