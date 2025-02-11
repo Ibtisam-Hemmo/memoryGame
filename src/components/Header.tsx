@@ -3,8 +3,10 @@ import logo from '../assets/gameLogo2.jpg';
 import styles from '../styles/GamePage.module.scss';
 import { RestartModal } from './index';
 import { useNavigate } from 'react-router-dom';
+import { useGameContext } from '../context/gameContext';
 
 const Header = () => {
+  const { resetGame } = useGameContext();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +19,8 @@ const Header = () => {
   }
 
   const onRestart = () => {
-    navigate("/")
+    navigate("/");
+    resetGame();
     setShowModal(false);
   }
 

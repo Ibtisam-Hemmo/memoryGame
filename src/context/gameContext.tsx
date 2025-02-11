@@ -11,7 +11,7 @@ const initialState: GameContextType = {
         cards: [],
         flippedCards: [],
         moves: 0,
-        gameStatus: "inProgress",
+        gameStatus: "paused",
         theme: "letters",
         level: "easy",
         gridSize: getGridSize("easy"),
@@ -49,7 +49,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             level: gameState.level,
             cards: generateCards(gameState.theme, gameState.level),
             moves: 0,
-            gameStatus: "inProgress",
+            gameStatus: "paused",
             flippedCards: [],
             gridSize: getGridSize(gameState.level),
             countDownTimer: getTimerByLevel(gameState.level),
@@ -85,7 +85,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             return () => clearInterval(interval);
         }
         // else if(gameState.countDownTimer === 8){
-        //     playSound(sounds.countDownTimeri)
+        //     playSound(sounds.countDownTimer)
         // }
          else if (gameState.countDownTimer === 0) {
             setGameState((prevState) => ({

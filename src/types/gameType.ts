@@ -7,7 +7,7 @@ type Card = {
     isMatched: boolean,
 }
 
-type GameStatus = "inProgress" | "completed" | "failed"
+type GameStatus = "paused" | "inProgress" | "completed" | "failed"
 
 type Themes = "letters" | "images" | "icons"
 

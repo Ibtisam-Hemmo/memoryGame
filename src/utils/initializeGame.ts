@@ -6,7 +6,7 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
     const savedGame = getGameFromLocalStorage();
     console.log('savedGame: ', savedGame);
 
-    if (savedGame && savedGame.gameStatus !== "failed") {
+    if (savedGame && savedGame.gameStatus === "inProgress") {
         return {
             ...savedGame,
             theme: savedGame.theme || theme,
@@ -22,7 +22,7 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
     return {
         flippedCards: [],
         moves: 0,
-        gameStatus: "inProgress",
+        gameStatus: "paused",
         theme,
         level,
         cards: generateCards(theme, level),

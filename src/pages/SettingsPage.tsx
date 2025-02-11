@@ -9,7 +9,7 @@ import styles from "../styles/settings.module.scss";
 
 
 const SettingsPage = () => {
-  const { gameState, startNewGame } = useGameContext();
+  const { gameState, startNewGame, resetGame } = useGameContext();
 
   const [selectedTheme, setSelectedTheme] = useState(gameState.theme);
   const [selectedDifficulty, setSelectedDifficulty] = useState(gameState.level);
@@ -28,6 +28,7 @@ const SettingsPage = () => {
   };
 
   const handleNewGame = () => {
+    resetGame()
     setShowModal(false);
   };
 
