@@ -54,7 +54,7 @@ export const checkForMatched = (
                 ? { ...card, isMatched: true }
                 : card
         );
-
+        playSound(sounds.matchCard)
         console.log('firstCard.lastFlipTime: ', firstCard.lastFlipTime);
 
         const timeDifference = Math.abs(firstCard.lastFlipTime - secondCard.lastFlipTime);
@@ -66,7 +66,7 @@ export const checkForMatched = (
             newTime += 3;
             setTimeIncreaseEffect(true);
             playSound(sounds.timeBonus)
-            setTimeout(() => setTimeIncreaseEffect(false), 1000); 
+            setTimeout(() => setTimeIncreaseEffect(false), 1000);
         }
 
         setGameState((prevState) => ({

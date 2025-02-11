@@ -75,6 +75,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         if (gameState.gameStatus === "inProgress" && gameState.countDownTimer > 0) {
+            if (gameState.countDownTimer === 9) {
+                playSound(sounds.countDownTimer)
+            }
             const interval = setInterval(() => {
                 setGameState((prevState) => ({
                     ...prevState,
@@ -83,11 +86,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }, 1000);
 
             return () => clearInterval(interval);
-        }
-        // else if(gameState.countDownTimer === 8){
-        //     playSound(sounds.countDownTimer)
-        // }
-         else if (gameState.countDownTimer === 0) {
+        } else if (gameState.countDownTimer === 0) {
             setGameState((prevState) => ({
                 ...prevState,
                 gameStatus: "failed",
@@ -106,7 +105,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         if (gameState.gameStatus === "failed") {
-            localStorage.removeItem("memoryGame");
             playSound(sounds.lose)
         }
         if (gameState.gameStatus === "completed") {
