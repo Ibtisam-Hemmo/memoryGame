@@ -3,6 +3,7 @@ import React, {
     useState, useRef, useCallback,
     useMemo
 } from 'react';
+import { useDebounce } from "../hooks/useDebounce";
 import { GameContextType, GameState, GameTheme, Levels, Themes } from '../types/gameType';
 import {
     gameLogic, sounds, playSound,
@@ -28,6 +29,17 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [gameTheme, setGameTheme] = useState<GameTheme>(getInitialTheme);
     const [timeIncreaseEffect, setTimeIncreaseEffect] = useState(false);
     const previousGameState = useRef<GameState | null>(null);
+    const debouncedGameState = useDebounce(gameState, 500);
+
+    useEffect(() => {
+        if (
+            !previousGameState.current ||
+            JSON.stringify(debouncedGameState) !== JSON.stringify(previousGameState.current)
+        ) {
+            saveGameToLocalStorage(debouncedGameState);
+            previousGameState.current = debouncedGameState;
+        }
+    }, [debouncedGameState]);
 
     useEffect(() => {
         document.body.className = gameTheme === "dark" ? "dark-theme" : "light-theme";
@@ -90,13 +102,6 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
             }));
         }
     }, [gameState.countDownTimer, gameState.gameStatus]);
-
-    useEffect(() => {
-        if (!previousGameState.current || JSON.stringify(gameState) !== JSON.stringify(previousGameState.current)) {
-            saveGameToLocalStorage(gameState);
-            previousGameState.current = gameState;
-        }
-    }, [gameState]);//TODO:debounce local storage update
 
     useEffect(() => {
         if (gameState.gameStatus === "failed") {
