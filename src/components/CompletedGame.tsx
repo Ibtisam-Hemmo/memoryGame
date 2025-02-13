@@ -15,7 +15,7 @@ const CompletedGame = () => {
 
     return (
         <>
-            <div className={styles.failureScreen}>
+            <div className={styles.secondaryPage}>
                 <img src={winImage} alt='win Image'/>
                 <p>{randomWinnerQuote}</p>
                 <p>Your highest Score is: {gameState.highScores[gameState.level]}</p>

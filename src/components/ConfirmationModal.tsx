@@ -1,20 +1,15 @@
 import styles from '../styles/modal.module.scss';
+import { ModalProps } from '../types/componentType';
 
-type Props = {
-    message: string;
-    confirmText: string;
-    cancelText: string;
-    onConfirm: () => void;
-    onCancel: () => void;
-};
 
-const ConfirmationModal: React.FC<Props> = ({ message, confirmText, cancelText, onConfirm, onCancel }) => {
+
+const ConfirmationModal: React.FC<ModalProps> = ({ message, confirmText, cancelText, onConfirm, onCancel }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
                 <p>{message}</p>
-                <button onClick={onCancel}>{cancelText}</button>
-                <button onClick={onConfirm}>{confirmText}</button>
+                <button onClick={onCancel} className={styles.cancelBtn}>{cancelText}</button>
+                <button onClick={onConfirm} className={styles.actionBtn}>{confirmText}</button>
             </div>
         </div>
     );

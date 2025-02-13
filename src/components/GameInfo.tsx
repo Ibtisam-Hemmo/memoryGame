@@ -1,6 +1,6 @@
 import { useGameContext } from "../context/gameContext";
 import styles from "../styles/GamePage.module.scss";
-import time from '../assets/timer.gif';
+import time from '../assets/time.gif';
 import highScore from '../assets/high-score.png';
 
 const GameInfo = () => {

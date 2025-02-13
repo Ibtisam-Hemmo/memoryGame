@@ -37,7 +37,7 @@ const GameBoard = () => {
             <div
               key={card.id}
               onClick={() => !card.isMatched && !card.isFlipped && flipCard(card.id)}
-              className={`${styles.cellFace} ${card.isFlipped || card.isMatched ? styles.flipped : ""}`}
+              className={`${styles.cardFace} ${card.isFlipped || card.isMatched ? styles.flipped : ""}`}
               style={{ animationDelay: delay }}
             >
               {renderCardContent(card)}
