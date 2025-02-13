@@ -9,67 +9,55 @@ import {
     PapaSmurf, jerry, mcCormick
 } from '../assets/images/index.ts';
 
-export const generateCards = (theme: Themes, level: Levels) => {
-    console.log('theme, level: ', theme, level);
+const themesConfig = {
+    letters: [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+        "K", "L", "M", "N", "O", "a", "b", "c", "d", "e", "f", "g", "h"
+    ],
+    icons: [
+        "🎮", "🎲", "🕹️", "🎧", "🎸",
+        "🛸", "🚁", "🔮", "🚀", "📷",
+        "💡", "🧩", "🎭", "🚦", "🎨",
+        "🛍️", "🕰️", "🔑"
+    ],
+    images: [
+        strawberry, yogiBear, winnieThePooh,
+        tweetyBird, tigger, spongeBob,
+        scoobyDoo, bunny, popeye,
+        patrickStar, mickeyMouse, helloKitty,
+        duck, Tom, Shrek,
+        PapaSmurf, jerry, mcCormick
+    ]
+};
 
-    const themes = {
-        letters: ["A", "B", "C", "D", "E",
-            "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O", "a",
-            "b", "c", "d", "e", "f", "g",
-            "h"],
-        icons: ["🎮", "🎲", "🕹️", "🎧", "🎸",
-            "🛸", "🚁", "🔮", "🚀", "📷",
-            "💡", "🧩", "🎭", "🚦", "🎨",
-            "🛍️", "🕰️", "🔑"],
-        images: [strawberry, yogiBear, winnieThePooh,
-            tweetyBird, tigger, spongeBob,
-            scoobyDoo, bunny, popeye,
-            patrickStar, mickeyMouse, helloKitty,
-            duck, Tom, Shrek,
-            PapaSmurf, jerry, mcCormick]
-    };
+const levelConfig = {
+    easy: { cardsCount: 12, grid: { rows: 3, columns: 4 }, timer: 150 },
+    medium: { cardsCount: 20, grid: { rows: 4, columns: 5 }, timer: 120 },
+    hard: { cardsCount: 36, grid: { rows: 6, columns: 6 }, timer: 100 }
+};
 
-    const levelConfig = {
-        easy: { cardsCount: 12 },
-        medium: { cardsCount: 20 },
-        hard: { cardsCount: 36 },
-    };
-
+const getCardContent = (theme: Themes, level: Levels) => {
     const { cardsCount } = levelConfig[level];
-    const selectedContent = themes[theme].slice(0, Math.ceil(cardsCount / 2));
+    return themesConfig[theme].slice(0, Math.ceil(cardsCount / 2));
+};
 
-    const cards: Card[] = selectedContent.flatMap((content, index) => [
-        { id: index * 2, type: theme, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
-        { id: index * 2 + 1, type: theme, content, lastFlipTime: 0, isFlipped: false, isMatched: false },
+const createCardPairs = (content: string[], theme: Themes): Card[] => {
+    return content.flatMap((item, index) => [
+        { id: index * 2, type: theme, content: item, lastFlipTime: 0, isFlipped: false, isMatched: false },
+        { id: index * 2 + 1, type: theme, content: item, lastFlipTime: 0, isFlipped: false, isMatched: false }
     ]);
+};
 
+export const generateCards = (theme: Themes, level: Levels) => {
+    const content = getCardContent(theme, level);
+    const cards = createCardPairs(content, theme);
     return shuffle(cards);
 };
 
-
 export const getGridSize = (level: Levels) => {
-    switch (level) {
-        case "easy":
-            return { rows: 3, columns: 4 };
-        case "medium":
-            return { rows: 4, columns: 5 };
-        case "hard":
-            return { rows: 6, columns: 6 };
-        default:
-            return { rows: 3, columns: 4 };
-    }
+    return levelConfig[level]?.grid || { rows: 3, columns: 4 };
 };
 
 export const getTimerByLevel = (level: Levels) => {
-    switch (level) {
-        case "easy":
-            return 150;
-        case "medium":
-            return 120;
-        case "hard":
-            return 100;
-        default:
-            return 150;
-    }
+    return levelConfig[level]?.timer || 150;
 };
