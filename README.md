@@ -95,13 +95,6 @@ Let’s make the game even more fun together! 🎉
 
 Did you know that playing memory games can actually improve your brain function? 🎯 So, every time you play this game, you’re making your brain even stronger. It’s a win-win! 🏅
 
----
-
-## 📱 Demo
-
-You can check out the live demo here (replace this link with your actual link if deployed):
-
-[Live Demo](https://memorycard9.netlify.app/)
 
 ---
 
