@@ -3,6 +3,7 @@
 main {
     margin: 0 1rem;
     background-color: var(--bg-default);
+    flex-grow: 1;
 }
 
 .header {
@@ -76,9 +77,10 @@ main {
     color: #f46255;
     font-size: 2rem;
     font-weight: bold;
-    transition: transform 0.2s ease-in-out, background-color 0.3s;
+    transition: transform 0.2s ease-in-out, background-color 0.3s, opacity 0.5s ease;
     opacity: 0;
     animation: cardEntry 0.5s ease-in-out forwards;
+    will-change: transform, opacity;
 
     &:hover {
         transform: scale(1.05);
@@ -102,7 +104,11 @@ main {
     color: black;
     border: 1px solid black;
     font-weight: bold;
+    opacity: 1;
+    transform: rotateY(180deg);
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease; 
 }
+
 
 .gameTitle {
     margin: 0 0 1rem 0;
@@ -118,6 +124,7 @@ main {
     width: 90%;
     color: var(--body-text);
     justify-content: center;
+    position: relative;
 }
 
 .footer p {
@@ -320,11 +327,6 @@ main {
     .gameTitle {
         font-size: 2.5rem;
         margin-top: 2rem;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
     }
 
     .secondaryPage h2 {
