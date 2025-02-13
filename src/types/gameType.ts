@@ -20,7 +20,7 @@ type GridSize = {
     columns: number;
 };
 
-type highScores = {
+type HighScores = {
     easy: number;
     medium: number;
     hard: number;
@@ -35,7 +35,7 @@ interface GameState {
     level: Levels;
     gridSize: GridSize;
     countDownTimer: number;
-    highScores: highScores;
+    highScores: HighScores;
 }
 
 type GameContextType = {
@@ -53,6 +53,7 @@ export type {
     Card,
     GameState,
     GameTheme,
+    HighScores,
     Themes,
     Levels,
     GameStatus,
