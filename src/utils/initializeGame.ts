@@ -4,7 +4,6 @@ import { getGameFromLocalStorage } from "./localStorage";
 
 export const initializeGame = (theme: Themes, level: Levels): GameState => {
     const savedGame = getGameFromLocalStorage();
-    console.log('savedGame: ', savedGame);
 
     if (savedGame && savedGame.gameStatus === "inProgress") {
         return {

@@ -6,6 +6,15 @@ type ChoiceGroup<T extends string> = {
     onSelect: (choice: T) => void;
 };
 
+type ModalProps = {
+    message: string;
+    confirmText: string;
+    cancelText: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+};
+
 export type {
-    ChoiceGroup
+    ChoiceGroup,
+    ModalProps
 }

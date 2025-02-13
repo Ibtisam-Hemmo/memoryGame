@@ -19,5 +19,4 @@ createRoot(document.getElementById('root')!).render(
     </Router>
   </GameProvider>,
 )
-/* handle when user goes to /game without
-         saved one or start a new game by showing modal*/
+

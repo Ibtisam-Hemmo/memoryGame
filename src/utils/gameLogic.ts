@@ -1,5 +1,5 @@
 import { Card, GameState } from "../types/gameType";
-import { playSound, sounds } from "./soundManager";
+import { playSound, sounds } from "./index";
 
 export const gameLogic = (
     cardId: number,
