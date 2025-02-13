@@ -1,5 +1,8 @@
+@import "./general.scss";
+
 main {
     margin: 0 1rem;
+    background-color: var(--bg-default);
 }
 
 .header {
@@ -15,21 +18,35 @@ main {
     height: auto;
 }
 
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
 .btn {
     padding: 0.8rem 1.5rem;
     border-radius: 0.3rem;
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
     font-weight: bold;
-    background-color: #f7c73e;
+    background-color: var(--first-color);
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        background-color: #caa02a;
+        transform: scale(1.05);
+    }
 }
 
-.btn:hover {
-    background-color: #caa02a;
-    transform: scale(1.05);
+.themeBtn {
+    background-color: var(--bg-default);
+    color: var(--body-text);
+    border: 1px solid var(--lines-color);
+    padding: 0.4rem;
+    font-size: 1.3rem;
+    border-radius: 4px;
 }
 
 .gameContainer {
@@ -39,6 +56,7 @@ main {
 
 .container {
     border: 1px solid black;
+    background-color: var(--bg-default);
     padding: 0.5rem;
     width: 55%;
 }
@@ -49,7 +67,7 @@ main {
     perspective: 1000px;
 }
 
-.cellFace {
+.cardFace {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,6 +77,8 @@ main {
     font-size: 2rem;
     font-weight: bold;
     transition: transform 0.2s ease-in-out, background-color 0.3s;
+    opacity: 0;
+    animation: cardEntry 0.5s ease-in-out forwards;
 
     &:hover {
         transform: scale(1.05);
@@ -77,11 +97,6 @@ main {
     }
 }
 
-.cellFace {
-    opacity: 0;
-    animation: cardEntry 0.5s ease-in-out forwards;
-}
-
 .flipped {
     background-color: white;
     color: black;
@@ -93,6 +108,7 @@ main {
     margin: 0 0 1rem 0;
     text-align: center;
     font-size: clamp(3.5rem, 4vw, 4rem);
+    color: var(--body-text)
 }
 
 .footer {
@@ -100,12 +116,16 @@ main {
     margin: 2rem 0;
     font-size: 1.5rem;
     width: 90%;
+    color: var(--body-text);
     justify-content: center;
 }
 
+.footer p {
+    margin-bottom: 1rem;
+}
+
 .gameInfo {
-    background-color: white;
-    ;
+    background-color: var(--bg-secondary);
     box-sizing: border-box;
     color: black;
     padding: 1rem;
@@ -141,7 +161,7 @@ main {
 
 .timeEffect {
     position: absolute;
-    background-color: white;
+    background-color: var(--bg-default);
     border: 1px solid;
     color: #3f3e8a;
     font-size: 2.5rem;
@@ -167,7 +187,7 @@ main {
     font-weight: bold;
 }
 
-.failureScreen {
+.secondaryPage {
     position: fixed;
     top: 0;
     left: 0;
@@ -179,18 +199,20 @@ main {
     align-items: center;
     text-align: center;
     font-size: 1.5rem;
+    background-color: var(--bg-default);
+    color: var(--body-text);
 }
 
-.failureScreen h2 {
-    font-size: 5rem;
+.secondaryPage h2 {
+    font-size: 3rem;
     margin-bottom: 2rem;
 }
 
-.failureScreen img {
+.secondaryPage img {
     width: 20%
 }
 
-.failureScreen p {
+.secondaryPage p {
     font-size: 2.2rem;
     margin-bottom: 2.5rem;
 }
@@ -210,7 +232,7 @@ main {
     }
 }
 
-.failureScreen button {
+.secondaryPage button {
     background: #ff4757;
     color: white;
     border: none;
@@ -221,12 +243,9 @@ main {
     font-size: 2.2rem;
 }
 
-.failureScreen button:hover {
+.secondaryPage button:hover {
     background: #e84118;
 }
-
-
-
 
 @media (max-width: 768px) {
 
@@ -242,7 +261,7 @@ main {
         gap: 5px;
     }
 
-    .cellFace {
+    .cardFace {
         font-size: 1rem;
     }
 
@@ -250,22 +269,22 @@ main {
         font-size: 1rem;
     }
 
-    .failureScreen h2 {
+    .secondaryPage h2 {
         font-size: 3rem;
         margin-bottom: 2rem;
     }
 
-    .failureScreen p {
+    .secondaryPage p {
         font-size: 2.2rem;
         margin-bottom: 2.5rem;
     }
 
-    .failureScreen button {
+    .secondaryPage button {
         padding: 1rem 2rem;
         font-size: 2.2rem;
     }
 
-    .failureScreen img {
+    .secondaryPage img {
         width: 30%
     }
 }
@@ -277,24 +296,30 @@ main {
     }
 
     .container {
-        width: 90%;
+        width: 100%;
     }
 
     .gameInfo {
         padding: 0.6rem;
         flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .gameInfo img:first-child {
+        width: 50px;
     }
 
     .grid {
         gap: 3px;
     }
 
-    .cellFace {
+    .cardFace {
         font-size: 0.9rem;
     }
 
     .gameTitle {
         font-size: 2.5rem;
+        margin-top: 2rem;
     }
 
     .footer {
@@ -302,22 +327,22 @@ main {
         bottom: 0;
     }
 
-    .failureScreen h2 {
+    .secondaryPage h2 {
         font-size: 2rem;
         margin-bottom: 1rem;
     }
 
-    .failureScreen p {
+    .secondaryPage p {
         font-size: 1.2rem;
         margin-bottom: 1.5rem;
     }
 
-    .failureScreen button {
+    .secondaryPage button {
         padding: 0.8rem 1.5rem;
         font-size: 1.2rem;
     }
 
-    .failureScreen img {
+    .secondaryPage img {
         width: 40%
     }
 }

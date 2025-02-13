@@ -12,7 +12,8 @@
 }
 
 .modalContent {
-    background-color: white;
+    background-color: var(--bg-default);
+    color: var(--body-text);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -22,13 +23,10 @@
 
 .modalContent p {
     font-size: 1.5rem;
-    color: #333;
     margin-bottom: 20px;
 }
 
 .modalContent button {
-    background-color: #4CAF50;
-    color: white;
     padding: 10px 20px;
     margin: 10px;
     border: none;
@@ -37,16 +35,20 @@
     font-size: 1.4rem;
 }
 
-.modalContent button:hover {
-    background-color: #45a049;
+.modalContent .actionBtn {
+    background-color: #f7c83e;
+
+    &:hover {
+        background-color: #cfa425;
+    }
 }
 
-.modalContent button:first-child {
-    background-color: #f44336;
-}
+.modalContent .cancelBtn {
+    background-color: #f46255;
 
-.modalContent button:first-child:hover {
-    background-color: #da190b;
+    &:hover {
+        background-color: #da190b;
+    }
 }
 
 .modalContent button:focus {
