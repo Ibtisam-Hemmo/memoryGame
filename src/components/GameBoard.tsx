@@ -1,9 +1,24 @@
+import { useEffect } from 'react';
 import { useGameContext } from '../context/gameContext';
 import styles from '../styles/GamePage.module.scss'
 import { Card } from '../types/gameType';
 
+const preloadImages = (images: string[]) => {
+  images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+};
 const GameBoard = () => {
   const { gameState, flipCard } = useGameContext();
+
+  useEffect(() => {
+    const imagesToPreload = gameState.cards
+      .filter((card) => card.type === 'images')
+      .map((card) => card.content);
+
+    preloadImages(imagesToPreload);
+  }, [gameState.cards]);
 
   const renderCardContent = (card: Card) => {
     if (card.isFlipped || card.isMatched) {
@@ -11,6 +26,7 @@ const GameBoard = () => {
         <img
           src={card.content}
           alt="Card"
+          loading="lazy"
           style={{ objectFit: "cover", height: "100%" }}
         />
       ) : (
