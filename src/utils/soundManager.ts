@@ -18,5 +18,6 @@ export const sounds = {
 
 export const playSound = (soundFile: string) => {
     const sound = new Audio(soundFile);
+    sound.preload = 'auto';
     sound.play();
 }
