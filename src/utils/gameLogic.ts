@@ -1,6 +1,5 @@
 import { Card, GameState } from "../types/gameType";
 import { playSound, sounds } from "./index";
-
 export const gameLogic = (
     cardId: number,
     gameState: GameState,
@@ -11,36 +10,41 @@ export const gameLogic = (
 
     if (flippedCards.length === 2) return;
 
-    flipCard(cardId, cards, flippedCards, setGameState);
-
-    if (flippedCards.length === 2) {
-        checkMatch(
-            flippedCards,
-            cards,
-            gameState.countDownTimer,
-            setGameState,
-            setTimeIncreaseEffect
-        );
-    }
+    flipCard(cardId, cards, flippedCards, setGameState, setTimeIncreaseEffect);
 };
 
 const flipCard = (
     cardId: number,
     cards: Card[],
     flippedCards: number[],
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>
+    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
+    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     const updatedCards = cards.map((card) =>
         card.id === cardId ? { ...card, isFlipped: true, lastFlipTime: Date.now() } : card
     );
     const updatedFlippedCards = [...flippedCards, cardId];
 
-    setGameState((prevState) => ({
-        ...prevState,
-        cards: updatedCards,
-        flippedCards: updatedFlippedCards,
-        moves: prevState.moves + 1,
-    }));
+    setGameState((prevState) => {
+        const newState = {
+            ...prevState,
+            cards: updatedCards,
+            flippedCards: updatedFlippedCards,
+            moves: prevState.moves + 1,
+        };
+
+        if (newState.flippedCards.length === 2) {
+            checkMatch(
+                newState.flippedCards,
+                newState.cards,
+                newState.countDownTimer,
+                setGameState,
+                setTimeIncreaseEffect
+            );
+        }
+
+        return newState;
+    });
 };
 
 const checkMatch = (
