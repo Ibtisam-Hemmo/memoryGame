@@ -13,6 +13,8 @@ type Themes = "letters" | "images" | "icons"
 
 type Levels = "easy" | "medium" | "hard"
 
+type GameTheme = "dark" | "light"
+
 type GridSize = {
     rows: number;
     columns: number;
@@ -38,7 +40,9 @@ interface GameState {
 
 type GameContextType = {
     gameState: GameState,
+    gameTheme: GameTheme,
     timeIncreaseEffect: boolean,
+    toggleTheme: () => void,
     flipCard: (id: number) => void,
     resetGame: () => void,
     startNewGame: (theme: Themes, level: Levels) => void
@@ -48,6 +52,7 @@ type GameContextType = {
 export type {
     Card,
     GameState,
+    GameTheme,
     Themes,
     Levels,
     GameStatus,

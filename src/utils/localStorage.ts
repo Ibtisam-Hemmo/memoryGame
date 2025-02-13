@@ -1,4 +1,4 @@
-import { GameState } from "../types/gameType";
+import { GameState, GameTheme } from "../types/gameType";
 import { generateCards, getGridSize } from "./generateCards";
 
 const GAME_VERSION = "1.2";
@@ -30,7 +30,7 @@ export const getGameFromLocalStorage = (): GameState | null => {
                 cards: generateCards(parsedData.theme || "letters", parsedData.level || "easy"),
                 gridSize: parsedData.gridSize || getGridSize(parsedData.level || "easy"),
                 countDownTimer: parsedData.countDownTimer || 150,
-                highScores:parsedData.highScores || { easy: 0, medium: 0, hard: 0 }
+                highScores: parsedData.highScores || { easy: 0, medium: 0, hard: 0 }
             },
         };
 
@@ -44,4 +44,7 @@ export const getGameFromLocalStorage = (): GameState | null => {
     return parsedData.state;
 };
 
-
+export const getInitialTheme = (): GameTheme => {
+    const savedTheme = localStorage.getItem("gameTheme");
+    return savedTheme === "dark" || savedTheme === "light" ? savedTheme : "light";
+};
