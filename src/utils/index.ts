@@ -1,4 +1,4 @@
-export { gameLogic, checkForMatched } from "./gameLogic";
+export { gameLogic } from "./gameLogic";
 export { generateCards, getTimerByLevel, getGridSize } from "./generateCards";
 export { initializeGame } from "./initializeGame";
 export { saveGameToLocalStorage, getGameFromLocalStorage } from "./localStorage";
