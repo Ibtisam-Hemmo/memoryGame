@@ -1,4 +1,5 @@
-@import "./general.scss";
+@import "./general";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Cookie&family=Merienda:wght@300..900&display=swap');
 
 .mainContainer {
   display: flex;
@@ -46,13 +47,14 @@
 }
 
 .choice {
-  font-size: 1.7rem;
+  font-size: 1rem;
   padding: 0.5rem 1rem;
   color: black;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   background: var(--button-bg);
+  font-family: "Poppins", Helvetica, sans-serif;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 
   &:hover {
@@ -62,7 +64,7 @@
   &.active {
     background: #3f3e8a;
     color: white;
-    font-weight: 400;
+    font-weight: bold;
     transform: scale(1.1);
   }
 }
@@ -75,8 +77,8 @@
 }
 
 .mainChoice {
-  font-size: 2.7rem;
-  min-width: 150px;
+  font-size: 2rem;
+  min-width: 130px;
 }
 
 .choicesGroup {
@@ -88,7 +90,7 @@
 .btn {
   padding: 1rem 3rem;
   margin-top: 3rem;
-  font-size: 2.2rem;
+  font-size: 2rem;
   background-color: #3f3e8a;
   color: white;
   border: none;
