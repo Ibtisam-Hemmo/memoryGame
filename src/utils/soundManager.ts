@@ -20,4 +20,7 @@ export const playSound = (soundFile: string) => {
     const sound = new Audio(soundFile);
     sound.preload = 'auto';
     sound.play();
+    sound.onended = () => {
+        sound.removeEventListener('ended', () => { });
+    };
 }
