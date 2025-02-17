@@ -43,7 +43,8 @@ const migrateGameState = (parsedData: ParsedData): GameState => {
         highScores: parsedData.state.highScores || DEFAULT_HIGH_SCORES,
         flippedCards: parsedData.state.flippedCards || [],
         moves: parsedData.state.moves || 0,
-        gameStatus: parsedData.state.gameStatus || "paused"
+        gameStatus: parsedData.state.gameStatus || "paused",
+        previousMatchTime: parsedData.state.previousMatchTime || 0
     };
 
     console.log('After migration: ', migratedState);
