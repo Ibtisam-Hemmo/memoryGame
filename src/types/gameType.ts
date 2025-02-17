@@ -36,6 +36,7 @@ interface GameState {
     gridSize: GridSize;
     countDownTimer: number;
     highScores: HighScores;
+    previousMatchTime:number;
 }
 
 type GameContextType = {
