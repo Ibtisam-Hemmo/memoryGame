@@ -6,17 +6,18 @@ export const gameLogic = (
     setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
     setGameState: React.Dispatch<React.SetStateAction<GameState>>
 ) => {
-    const { cards, flippedCards } = gameState;
+    const { cards, flippedCards, previousMatchTime } = gameState;
 
     if (flippedCards.length === 2) return;
 
-    flipCard(cardId, cards, flippedCards, setGameState, setTimeIncreaseEffect);
+    flipCard(cardId, cards, flippedCards, previousMatchTime, setGameState, setTimeIncreaseEffect);
 };
 
 const flipCard = (
     cardId: number,
     cards: Card[],
     flippedCards: number[],
+    previousMatchTime: number,
     setGameState: React.Dispatch<React.SetStateAction<GameState>>,
     setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -38,6 +39,7 @@ const flipCard = (
                 newState.flippedCards,
                 newState.cards,
                 newState.countDownTimer,
+                previousMatchTime,
                 setGameState,
                 setTimeIncreaseEffect
             );
@@ -51,6 +53,7 @@ const checkMatch = (
     flippedCards: number[],
     cards: Card[],
     countdownTimer: number,
+    previousMatchTime: number,
     setGameState: React.Dispatch<React.SetStateAction<GameState>>,
     setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -61,7 +64,7 @@ const checkMatch = (
     if (!firstCard || !secondCard) return;
 
     if (firstCard.content === secondCard.content) {
-        handleMatchedCards(firstCardId, secondCardId, cards, countdownTimer, setGameState, setTimeIncreaseEffect);
+        handleMatchedCards(firstCardId, secondCardId, cards, countdownTimer, previousMatchTime, setGameState, setTimeIncreaseEffect);
     } else {
         resetFlippedCards(firstCardId, secondCardId, cards, setGameState);
     }
@@ -72,6 +75,7 @@ const handleMatchedCards = (
     secondCardId: number,
     cards: Card[],
     countdownTimer: number,
+    previousMatchTime: number,
     setGameState: React.Dispatch<React.SetStateAction<GameState>>,
     setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -81,13 +85,13 @@ const handleMatchedCards = (
             : card
     );
     playSound(sounds.matchCard);
-
     const firstCard = cards.find((card) => card.id === firstCardId);
     const secondCard = cards.find((card) => card.id === secondCardId);
 
     if (!firstCard || !secondCard) return;
 
-    const timeDifference = Math.abs(firstCard.lastFlipTime - secondCard.lastFlipTime);
+    const currentMatchTime = Date.now();
+    const timeDifference = Math.abs(previousMatchTime - currentMatchTime);
     let newTime = countdownTimer;
 
     if (timeDifference <= 2000) {
@@ -105,7 +109,8 @@ const handleMatchedCards = (
         gameStatus: matchedCards.every((card) => card.isMatched)
             ? "completed"
             : "inProgress",
-        countDownTimer: newTime
+        countDownTimer: newTime,
+        previousMatchTime: currentMatchTime
     }));
 };
 

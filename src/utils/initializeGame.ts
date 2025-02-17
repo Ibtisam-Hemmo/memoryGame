@@ -12,6 +12,7 @@ export const initializeGame = (theme: Themes, level: Levels): GameState => {
             level: savedGame.level || level,
             cards: resetUnmatchedCards(savedGame.cards),
             flippedCards: [],
+            previousMatchTime: savedGame.previousMatchTime || 0,
         };
     }
 
@@ -33,6 +34,7 @@ const createNewGameState = (theme: Themes, level: Levels, highScores: HighScores
     cards: generateCards(theme, level),
     gridSize: getGridSize(level),
     countDownTimer: getTimerByLevel(level),
-    highScores
+    highScores,
+    previousMatchTime: 0
 });
 
