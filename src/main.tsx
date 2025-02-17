@@ -8,8 +8,8 @@ import "./styles/general.scss";
 
 createRoot(document.getElementById('root')!).render(
   <GameProvider>
-    <Router>
-      <Routes>
+    <Router basename={import.meta.env.DEV ? '/' : '/memoryGame/'}>
+    <Routes>
         <Route path="/" element={<SettingsPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/game" element={<GamePage />} />
