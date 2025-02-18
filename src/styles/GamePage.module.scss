@@ -48,9 +48,10 @@ main {
     padding: 0.4rem;
     font-size: 1.3rem;
     border-radius: 4px;
+
     &:hover {
         background-color: #e9e4e480;
-      }
+    }
 }
 
 .gameContainer {
@@ -309,6 +310,12 @@ main {
         gap: 20px;
     }
 
+    .buttons .btn {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+    }
+
     .container {
         width: 100%;
     }
@@ -328,7 +335,7 @@ main {
     }
 
     .cardFace {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
 
     .gameTitle {
