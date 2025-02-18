@@ -48,6 +48,9 @@ main {
     padding: 0.4rem;
     font-size: 1.3rem;
     border-radius: 4px;
+    &:hover {
+        background-color: #e9e4e480;
+      }
 }
 
 .gameContainer {
