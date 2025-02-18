@@ -6,7 +6,7 @@ import { SettingsPage, GamePage, NotFoundPage } from './pages/index.ts';
 import { GameOver, CompletedGame } from './components/index.ts';
 import './styles/general.scss';
 
-const basePath = import.meta.env.DEV ? '/' : '/memoryGame/'; 
+const basePath = import.meta.env.DEV ? '/' : '/memoryGame/';
 
 createRoot(document.getElementById('root')!).render(
   <GameProvider>
@@ -16,13 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/game" element={<GamePage />} />
         <Route path="/game/failed" element={<GameOver />} />
         <Route path="/game/completed" element={<CompletedGame />} />
-        {import.meta.env.DEV ? (
-          // In development
-          <Route path="*" element={<NotFoundPage />} />
-        ) : (
-          // In production
-          <Route path="/notfound" element={<NotFoundPage />} />
-        )}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   </GameProvider>
