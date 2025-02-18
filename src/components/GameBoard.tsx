@@ -41,10 +41,11 @@ const GameBoard = () => {
       <div
         className={styles.grid}
         style={{
-          gridTemplateColumns: `repeat(${gameState.gridSize.columns}, minmax(60px, 1fr))`,
-          gridTemplateRows: `repeat(${gameState.gridSize.rows}, minmax(60px, 1fr))`,
+          gridTemplateColumns: `repeat(${gameState.gridSize.columns}, minmax(${window.innerWidth < 600 ? '55px' : '60px'}, 1fr))`,
+          gridTemplateRows: `repeat(${gameState.gridSize.rows}, minmax(${window.innerWidth < 600 ? '55px' : '60px'}, 1fr))`,
         }}
       >
+
         {gameState.cards.map((card, index) => {
           const colIndex = index % gameState.gridSize.columns;
           const delay = `${colIndex * 150}ms`;
