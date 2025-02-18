@@ -9,7 +9,7 @@ This game was built with ❤️ using **React**, **SASS**, and **TypeScript**, a
 
 ## 🚀 Live Demo
 
-Play the game live here: [Memory Card Game Demo](https://memorycard9.netlify.app/)
+Play the game live here: [Memory Card Game Demo](https://ibtisam-hemmo.github.io/memoryGame/)
 
 ---
 
