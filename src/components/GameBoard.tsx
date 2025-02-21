@@ -41,7 +41,7 @@ const GameBoard = () => {
       <div
         className={styles.grid}
         style={{
-          gridTemplateColumns: `repeat(${gameState.gridSize.columns}, minmax(${window.innerWidth < 600 ? '55px' : '60px'}, 1fr))`,
+          gridTemplateColumns: `repeat(${gameState.gridSize.columns}, minmax(${window.innerWidth < 600 ? '50px' : '60px'}, 1fr))`,
           gridTemplateRows: `repeat(${gameState.gridSize.rows}, minmax(${window.innerWidth < 600 ? '55px' : '60px'}, 1fr))`,
         }}
       >
