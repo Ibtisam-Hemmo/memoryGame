@@ -8,6 +8,7 @@ body.light-theme {
     --button-bg: #f5f5f5;
     --lines-color: #938c8c;
     --body-text: #333333;
+    --border-color:#000000;
     --first-color: #f7c73e;
     --second-color: #f46255;
     --third-color: #3f3e8a;
@@ -15,10 +16,11 @@ body.light-theme {
 
 body.dark-theme {
     --bg-default: #1a1a1a;
-    --bg-secondary: #ffffffb5;
+    --bg-secondary: #ffffffd6;
     --button-bg: #d4caca;
     --lines-color: #938c8c;
     --body-text: #ededed;
+    --border-color:#ffffff;
     --first-color: #f7c73e;
     --second-color: #f46255;
     --third-color: #3f3e8a;
@@ -28,7 +30,7 @@ body.dark-theme {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Bangers", helvetica, arial, serif;
+    font-family: "Poppins", helvetica, arial, serif;
 }
 
 html,

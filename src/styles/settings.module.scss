@@ -81,7 +81,8 @@
 }
 
 .mainChoice {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
   min-width: 130px;
 }
 
@@ -92,9 +93,10 @@
 }
 
 .btn {
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   margin-top: 3rem;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   background-color: #3f3e8a;
   color: white;
   border: none;
@@ -107,8 +109,6 @@
     transform: scale(1.03);
   }
 }
-
-@media (max-width: 768px) {}
 
 @media (max-width: 480px) {
 
@@ -129,7 +129,6 @@
   }
 
   .btn {
-    font-size: 1.3rem;
     padding: 0.6rem 1rem;
     margin-top: 1.5rem;
   }
@@ -162,14 +161,13 @@
   }
 
   .btn {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     padding: 1rem 1.6rem;
     margin-top: 2rem;
   }
 
   .mainChoice {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     min-width: 100px;
-    letter-spacing: 1px;
   }
 }

@@ -25,11 +25,9 @@ main {
 }
 
 .btn {
-    padding: 0.8rem 1.5rem;
-    border-radius: 0.3rem;
-    font-size: 1.5rem;
-    letter-spacing: 0.2rem;
-    font-weight: bold;
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
     background-color: var(--first-color);
     border: none;
     cursor: pointer;
@@ -51,6 +49,7 @@ main {
 
     &:hover {
         background-color: #e9e4e480;
+        transform: scale(1.05);
     }
 }
 
@@ -60,7 +59,7 @@ main {
 }
 
 .container {
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
     background-color: var(--bg-default);
     padding: 0.5rem;
     width: 55%;
@@ -73,6 +72,7 @@ main {
 }
 
 .cardFace {
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,19 +113,18 @@ main {
     transition: transform 0.5s ease-in-out, opacity 0.3s ease;
 }
 
-
 .gameTitle {
     margin: 0 0 1rem 0;
     text-align: center;
-    letter-spacing: 5px;
-    font-size: clamp(3.5rem, 4vw, 4rem);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-family: 'Rubik Iso', Verdana, sans-serif;
     color: var(--body-text)
 }
 
 .footer {
     display: flex;
     margin: 2rem 0 1rem 0;
-    font-size: 1.5rem;
+    font-weight: bold;
     color: var(--body-text);
     justify-content: center;
     position: relative;
@@ -158,7 +157,7 @@ main {
 
 .infoItem span {
     font-weight: bold;
-    letter-spacing: 1.5px;
+    font-family: 'Rubik Iso', Verdana, sans-serif;
 }
 
 .infoItem strong {
@@ -228,7 +227,6 @@ main {
 .secondaryPage p {
     font-size: 1.6rem;
     margin-bottom: 2rem;
-    font-family: 'Poppins', Times, serif;
     font-weight: bold;
 }
 
@@ -236,14 +234,15 @@ main {
     background: #052a75;
     color: white;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
     transition: background 0.3s ease;
     padding: 0.8rem 1.5rem;
     font-size: 2rem;
-
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
     &:hover {
         background: #e84118;
+        font-weight: bold;
     }
 }
 
@@ -256,10 +255,14 @@ main {
     transition: background 0.3s ease;
     padding: 0.8rem 1.5rem;
     font-size: 2rem;
-}
-
-.secondaryPage button:hover {
-    background: #e84118;
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    &:hover {
+        background: #e84118;
+        font-weight: bold;
+    
+    }
 }
 
 @media (max-width: 768px) {
@@ -277,10 +280,6 @@ main {
     }
 
     .cardFace {
-        font-size: 1rem;
-    }
-
-    .gameInfo .title {
         font-size: 1rem;
     }
 
@@ -339,7 +338,6 @@ main {
     }
 
     .gameTitle {
-        font-size: 2.5rem;
         margin-top: 2rem;
     }
 
