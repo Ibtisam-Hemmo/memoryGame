@@ -1,25 +1,25 @@
 
-# 🧠 Memory Card Game 🃏
+# Memory Card Game 🃏
 
-Welcome to the **Memory Card Game** – a super fun, challenging, and totally addictive game where you test your brainpower and memory skills! 🤩🧠 Ready to flip some cards and match them all?
+Welcome to the **Memory Card Game** – a super fun, challenging, and totally addictive game where you test your brainpower and memory skills! Ready to flip some cards and match them all?
 
-This game was built with ❤️ using **React**, **SASS**, and **TypeScript**, and it's all about flipping cards, matching pairs, and competing for the highest score! Let’s see if you can remember where all the cards are hiding... 🔥
+This game was built with ❤️ using **React**, **TypeScript**, and **SASS**, and it's all about flipping cards, matching pairs, and competing for the highest score! Let’s see if you can remember where all the cards are hiding... 🔥
 
 ---
 
-## 🚀 Live Demo
+## Live Demo 🚀
 
 Play the game live here: [Memory Card Game Demo](https://ibtisam-hemmo.github.io/memoryGame/)
 
 ---
 
-## 🖌️ Figma Study
+## Figma Study 🖌️
 
 Check out the Figma design study for the game layout and interface: [Figma Design Study](https://www.figma.com/design/Xg5PWTH6wm7BwpryOh0jJf/Memory-Card?node-id=39-209&t=6ZbfHQraWeecSgVg-1)
 
 ---
 
-## 🚀 Features
+## Features 🚀
 
 - **Flip & Match Cards**: Flip cards one by one and try to match pairs. Can you remember where all the cards are?
 - **Timer**: Time is ticking ⏰ – race against the clock while matching cards!
@@ -30,7 +30,7 @@ Check out the Figma design study for the game layout and interface: [Figma Desig
 
 ---
 
-## 📦 Getting Started
+## Getting Started 📦
 
 1. **Clone the repo**:
 
@@ -59,7 +59,7 @@ Check out the Figma design study for the game layout and interface: [Figma Desig
 
 ---
 
-## 🎮 How to Play
+## How to Play 🎮
 
 1. **Click to Flip**: Click on a card to flip it over and reveal its content.
 2. **Match the Cards**: If two flipped cards match, they’ll stay flipped! If not, they’ll flip back.
@@ -68,16 +68,16 @@ Check out the Figma design study for the game layout and interface: [Figma Desig
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack ⚙️
 
 - **React**: For building interactive UI components
-- **SASS**: For styling – it’s like CSS, but with extra flair! ✨
-- **TypeScript**: Adding some type safety and fun to your development experience 💻
-- **LocalStorage**: Save your game progress and high scores (because who remembers all that?) 📂
+- **SASS**: For styling – it’s like CSS, but with extra flair!
+- **TypeScript**: Adding some safety and fun to your development experience
+- **LocalStorage**: Save your game progress and high scores (because who remembers all that?)
 
 ---
 
-## 👾 Contribute
+## Contribute 👾
 
 Want to help make this game even more awesome? Here’s how you can contribute:
 
@@ -91,14 +91,7 @@ Let’s make the game even more fun together! 🎉
 
 ---
 
-## 🤖 Fun Fact
-
-Did you know that playing memory games can actually improve your brain function? 🎯 So, every time you play this game, you’re making your brain even stronger. It’s a win-win! 🏅
-
-
----
-
-## 👋 Let's Connect!
+## Let's Connect! 👋
 
 If you want to chat, share your high scores, or suggest cool features, feel free to reach out!
 
