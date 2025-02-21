@@ -16,7 +16,7 @@ const GamePage = () => {
         <>
             <main>
                 <Header />
-                <h2 className={styles.gameTitle}>Game Board</h2>
+                <h1 className={styles.gameTitle}>Game Board</h1>
                 <div className={styles.gameContainer}>
                     <GameBoard />
                     <GameInfo />
