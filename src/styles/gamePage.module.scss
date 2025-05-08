@@ -1,0 +1,373 @@
+
+.main {
+    margin: 0 1rem;
+    background-color: var(--bg-default);
+    flex-grow: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    background-color: var(--first-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        background-color: #caa02a;
+        transform: scale(1.05);
+    }
+}
+
+.themeBtn {
+    background-color: var(--bg-default);
+    color: var(--body-text);
+    border: 1px solid var(--lines-color);
+    padding: 0.4rem;
+    font-size: 1.3rem;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: #e9e4e480;
+        transform: scale(1.05);
+    }
+}
+
+.gameContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-default);
+    padding: 0.5rem;
+    width: 55%;
+}
+
+.grid {
+    display: grid;
+    gap: 10px;
+    perspective: 1000px;
+}
+
+.cardFace {
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background-color: black;
+    color: #f46255;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, background-color 0.3s, opacity 0.5s ease;
+    opacity: 0;
+    animation: cardEntry 0.5s ease-in-out forwards;
+    will-change: transform, opacity;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes cardEntry {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.flipped {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bold;
+    opacity: 1;
+    transform: rotateY(180deg);
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease;
+}
+
+.gameTitle {
+    margin: 0 0 1rem 0;
+    text-align: center;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-family: var(--font-rubik), Verdana, sans-serif;
+    color: var(--body-text)
+}
+
+.footer {
+    display: flex;
+    margin: 2rem 0 1rem 0;
+    font-weight: bold;
+    color: var(--body-text);
+    justify-content: center;
+    position: relative;
+}
+
+.footer p {
+    margin-bottom: 1rem;
+}
+
+.gameInfo {
+    background-color: var(--bg-secondary);
+    box-sizing: border-box;
+    color: black;
+    padding: 1rem;
+    border: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoItem {
+    display: flex;
+    margin: 10px 0;
+    font-size: 1.7rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.infoItem span {
+    font-weight: bold;
+    font-family: var(--font-rubik), Verdana, sans-serif;
+}
+
+.infoItem strong {
+    color: #f46255;
+    font-family: 'Poppins', Courier, monospace;
+    font-size: 1.5rem;
+}
+
+.timeEffect {
+    position: absolute;
+    background-color: var(--bg-default);
+    border: 1px solid;
+    color: #3f3e8a;
+    font-size: 2rem;
+    padding: 0.8rem;
+    font-weight: bold;
+    animation: fadeUp 2s ease-out;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
+
+.imageContainer {
+    position: relative;
+    width: 40px; 
+    height: 40px;
+    
+    @media (max-width: 768px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  .image, .highScoreImage {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+
+  
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.secondaryPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: var(--bg-default);
+    color: var(--body-text);
+}
+
+.secondaryPage h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+
+}
+
+.secondaryPage img {
+    width: 20%;
+    height: auto;
+}
+
+.secondaryPage p {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+#tryAgainButton {
+    background: #052a75;
+    color: white;
+    border: none;
+    transition: background 0.3s ease;
+    padding: 0.8rem 1.5rem;
+    font-size: 2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    &:hover {
+        background: #e84118;
+        font-weight: bold;
+    }
+}
+
+.secondaryPage button {
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    padding: 0.8rem 1.5rem;
+    font-size: 2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    &:hover {
+        background: #e84118;
+        font-weight: bold;
+    
+    }
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 70%;
+    }
+
+    .gameInfo {
+        padding: 0.3rem;
+    }
+
+    .grid {
+        gap: 5px;
+    }
+
+    .cardFace {
+        font-size: 1.8rem;
+    }
+
+    .secondaryPage h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .secondaryPage button {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+    }
+
+    .secondaryPage img {
+        width: 30%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .gameContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .buttons .btn {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .gameInfo {
+        padding: 0.6rem;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .gameInfo img:first-child {
+        width: 50px;
+    }
+
+    .grid {
+        gap: 3px;
+    }
+
+    .cardFace {
+        font-size: 1.5rem;
+    }
+
+    .gameTitle {
+        margin-top: 2rem;
+    }
+
+    .secondaryPage h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .secondaryPage p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .secondaryPage button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .secondaryPage img {
+        width: 40%;
+        height: auto;
+    }
+}
