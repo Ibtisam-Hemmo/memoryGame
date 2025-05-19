@@ -5,19 +5,22 @@ import { getInitialTheme } from "@/utils/localStorage";
 import { useEffect, useState } from "react";
 
 export const useTheme = () => {
-    const [theme, setTheme] = useState<GameTheme>('light');
-    
-    useEffect(() => {
-      setTheme(getInitialTheme());
-    }, []);
-  
-    const toggleTheme = () => {
-      setTheme(prev => {
-        const newTheme = prev === 'light' ? 'dark' : 'light';
-        localStorage.setItem("gameTheme", newTheme);
-        return newTheme;
-      });
-    };
-  
-    return { theme, toggleTheme };
+  const [theme, setTheme] = useState<GameTheme>("light");
+
+  useEffect(() => {
+    const initialTheme = getInitialTheme();
+    setTheme(initialTheme);
+    document.body.className = `${initialTheme}-theme`;
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("gameTheme", theme);
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
+
+  return { theme, toggleTheme };
+};

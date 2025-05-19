@@ -1,62 +1,78 @@
 type Card = {
-    id: number,
-    type: string,
-    content: string,
-    lastFlipTime: number,
-    isFlipped: boolean,
-    isMatched: boolean,
-}
+  id: number;
+  type: string;
+  content: string;
+  lastFlipTime: number;
+  isFlipped: boolean;
+  isMatched: boolean;
+};
 
-type GameStatus = "paused" | "inProgress" | "completed" | "failed"
+type GameStatus = "paused" | "inProgress" | "completed" | "failed";
 
-type Themes = "letters" | "images" | "icons"
+type Themes = "letters" | "images" | "icons";
 
-type Levels = "easy" | "medium" | "hard"
+type Levels = "easy" | "medium" | "hard";
 
-type GameTheme = "dark" | "light"
+type GameTheme = "dark" | "light";
+
+type GameMode = "single" | "multi";
 
 type GridSize = {
-    rows: number;
-    columns: number;
+  rows: number;
+  columns: number;
 };
 
 type HighScores = {
-    easy: number;
-    medium: number;
-    hard: number;
+  [playerId: string]: {
+    easy?: number;
+    medium?: number;
+    hard?: number;
+  };
+};
+
+interface Player {
+  id: string;
+  name: string;
+  moves: number;
+  matches: number;
+  score: number;
 }
 
 interface GameState {
-    cards: Card[];
-    flippedCards: number[];
-    moves: number;
-    gameStatus: GameStatus;
-    theme: Themes;
-    level: Levels;
-    gridSize: GridSize;
-    countDownTimer: number;
-    highScores: HighScores;
-    previousMatchTime:number;
+  mode: GameMode;
+  players: Player[];
+  currentPlayerId: string;
+  cards: Card[];
+  flippedCards: number[];
+  winner: string;
+  gameStatus: GameStatus;
+  theme: Themes;
+  level: Levels;
+  gridSize: GridSize;
+  countDownTimer: number;
+  highScores: HighScores;
+  previousMatchTime: number;
 }
 
 type GameContextType = {
-    gameState: GameState,
-    gameTheme: GameTheme,
-    timeIncreaseEffect: boolean,
-    toggleTheme: () => void,
-    flipCard: (id: number) => void,
-    resetGame: () => void,
-    startNewGame: (theme: Themes, level: Levels) => void
+  gameState: GameState;
+  gameTheme: GameTheme;
+  timeIncreaseEffect: boolean;
+  toggleTheme: () => void;
+  flipCard: (id: number) => void;
+  resetGame: () => void;
+  startNewGame: (theme: Themes, level: Levels, mode: GameMode) => void;
 };
 
-
 export type {
-    Card,
-    GameState,
-    GameTheme,
-    HighScores,
-    Themes,
-    Levels,
-    GameStatus,
-    GameContextType
-}
+  Player,
+  Card,
+  GameState,
+  GameMode,
+  GameTheme,
+  HighScores,
+  Themes,
+  Levels,
+  GameStatus,
+  GameContextType,
+};

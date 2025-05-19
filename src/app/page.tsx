@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 
 import { useGameContext } from "../context/gameContext";
-import { Themes, Levels } from "../types/gameType";
+import { Themes, Levels, GameMode } from "../types/gameType";
 import { ChoiceGroup } from "../components";
 import styles from "../styles/settings.module.scss";
 const SavedGameModal = dynamic(() => import("../components/SavedGameModal"), {
@@ -19,6 +19,7 @@ const SettingsPage = () => {
   const { gameState, gameTheme, toggleTheme, startNewGame, resetGame } = useGameContext();
   const [selectedTheme, setSelectedTheme] = useState(gameState.theme);
   const [selectedDifficulty, setSelectedDifficulty] = useState(gameState.level);
+  const [selectedMode, setSelectedMode] = useState(gameState.mode);
   const [showModal, setShowModal] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const [startingNewGame, setStartingNewGame] = useState(false);
@@ -34,7 +35,7 @@ const SettingsPage = () => {
 
   const handleNewGameStart = () => {
     setStartingNewGame(true);
-    startNewGame(selectedTheme, selectedDifficulty);
+    startNewGame(selectedTheme, selectedDifficulty, selectedMode);
     router.push("/game");
   };
 
@@ -90,6 +91,13 @@ const SettingsPage = () => {
             choices={["easy", "medium", "hard"]}
             selected={selectedDifficulty}
             onSelect={setSelectedDifficulty}
+          />
+
+          <ChoiceGroup<GameMode>
+            title="Mode"
+            choices={["single", "multi"]}
+            selected={selectedMode}
+            onSelect={setSelectedMode}
           />
         </div>
 

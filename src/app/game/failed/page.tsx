@@ -6,7 +6,7 @@ import { losingQuotes } from '../../../utils/quotes';
 import { useGameContext } from '../../../context/gameContext';
 import Image from 'next/image';
 import { useRandomQuote } from "@/hooks/useRandomQuote";
-import useSoundOnMount from "@/hooks/useSoundOnMount";
+import { useSoundOnMount } from "@/hooks";
 import { sounds } from "@/utils";
 
 const GameOver = () => {

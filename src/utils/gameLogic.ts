@@ -1,136 +1,237 @@
-import { Card, GameState } from "../types/gameType";
+import { Card, GameMode, GameState, Player } from "../types/gameType";
 import { playSound, sounds } from "./index";
+
 export const gameLogic = (
-    cardId: number,
-    gameState: GameState,
-    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>
+  cardId: number,
+  gameState: GameState,
+  setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>
 ) => {
-    const { cards, flippedCards, previousMatchTime } = gameState;
+  const {
+    cards,
+    flippedCards,
+    previousMatchTime,
+    players,
+    currentPlayerId,
+    mode,
+  } = gameState;
 
-    if (flippedCards.length === 2) return;
+  if (flippedCards.length === 2) return;
 
-    flipCard(cardId, cards, flippedCards, previousMatchTime, setGameState, setTimeIncreaseEffect);
+  flipCard(
+    gameState,
+    currentPlayerId,
+    players,
+    cardId,
+    cards,
+    flippedCards,
+    previousMatchTime,
+    setGameState,
+    setTimeIncreaseEffect,
+    mode
+  );
 };
 
 const flipCard = (
-    cardId: number,
-    cards: Card[],
-    flippedCards: number[],
-    previousMatchTime: number,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
-    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
+  gameState: GameState,
+  currentPlayerId: string,
+  players: Player[],
+  cardId: number,
+  cards: Card[],
+  flippedCards: number[],
+  previousMatchTime: number,
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>,
+  setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
+  mode: GameMode
 ) => {
-    const updatedCards = cards.map((card) =>
-        card.id === cardId ? { ...card, isFlipped: true, lastFlipTime: Date.now() } : card
-    );
-    const updatedFlippedCards = [...flippedCards, cardId];
+  const updatedCards = cards.map((card) =>
+    card.id === cardId
+      ? { ...card, isFlipped: true, lastFlipTime: Date.now() }
+      : card
+  );
+  const updatedFlippedCards = [...flippedCards, cardId];
 
-    setGameState((prevState) => {
-        const newState = {
-            ...prevState,
-            cards: updatedCards,
-            flippedCards: updatedFlippedCards,
-            moves: prevState.moves + 1,
-        };
+  const updatedPlayers = players.map((player) =>
+    player.id === currentPlayerId
+      ? { ...player, moves: player.moves + 1 }
+      : player
+  );
 
-        if (newState.flippedCards.length === 2) {
-            checkMatch(
-                newState.flippedCards,
-                newState.cards,
-                newState.countDownTimer,
-                previousMatchTime,
-                setGameState,
-                setTimeIncreaseEffect
-            );
-        }
+  setGameState((prevState) => ({
+    ...prevState,
+    cards: updatedCards,
+    flippedCards: updatedFlippedCards,
+    players: updatedPlayers,
+  }));
 
-        return newState;
-    });
+  if (updatedFlippedCards.length === 2) {
+    setTimeout(() => {
+      checkMatch(
+        mode,
+        currentPlayerId,
+        updatedFlippedCards,
+        updatedCards,
+        gameState.countDownTimer,
+        previousMatchTime,
+        setGameState,
+        setTimeIncreaseEffect
+      );
+    }, 0);
+  }
 };
 
 const checkMatch = (
-    flippedCards: number[],
-    cards: Card[],
-    countdownTimer: number,
-    previousMatchTime: number,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
-    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
+  mode: GameMode,
+  currentPlayerId: string,
+  flippedCards: number[],
+  cards: Card[],
+  countdownTimer: number,
+  previousMatchTime: number,
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>,
+  setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-    const [firstCardId, secondCardId] = flippedCards;
-    const firstCard = cards.find((card) => card.id === firstCardId);
-    const secondCard = cards.find((card) => card.id === secondCardId);
+  const [firstCardId, secondCardId] = flippedCards;
+  const firstCard = cards.find((card) => card.id === firstCardId);
+  const secondCard = cards.find((card) => card.id === secondCardId);
 
-    if (!firstCard || !secondCard) return;
+  if (!firstCard || !secondCard) return;
 
-    if (firstCard.content === secondCard.content) {
-        handleMatchedCards(firstCardId, secondCardId, cards, countdownTimer, previousMatchTime, setGameState, setTimeIncreaseEffect);
-    } else {
-        resetFlippedCards(firstCardId, secondCardId, cards, setGameState);
-    }
+  if (firstCard.content === secondCard.content) {
+    handleMatchedCards(
+      firstCardId,
+      secondCardId,
+      cards,
+      countdownTimer,
+      previousMatchTime,
+      setGameState,
+      setTimeIncreaseEffect,
+      mode
+    );
+  } else {
+    resetFlippedCards(
+      firstCardId,
+      secondCardId,
+      cards,
+      currentPlayerId,
+      mode,
+      setGameState
+    );
+  }
 };
 
 const handleMatchedCards = (
-    firstCardId: number,
-    secondCardId: number,
-    cards: Card[],
-    countdownTimer: number,
-    previousMatchTime: number,
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>,
-    setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>
+  firstCardId: number,
+  secondCardId: number,
+  cards: Card[],
+  countdownTimer: number,
+  previousMatchTime: number,
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>,
+  setTimeIncreaseEffect: React.Dispatch<React.SetStateAction<boolean>>,
+  mode: GameMode
 ) => {
-    const matchedCards = cards.map((card) =>
-        card.id === firstCardId || card.id === secondCardId
-            ? { ...card, isMatched: true }
-            : card
+  const matchedCards = cards.map((card) =>
+    card.id === firstCardId || card.id === secondCardId
+      ? { ...card, isMatched: true }
+      : card
+  );
+  playSound(sounds.matchCard);
+
+  const currentMatchTime = Date.now();
+  const timeDifference = Math.abs(previousMatchTime - currentMatchTime);
+  let newTime = countdownTimer;
+
+  if (timeDifference <= 2000) {
+    newTime += 3;
+    setTimeIncreaseEffect(true);
+    playSound(sounds.timeBonus);
+    setTimeout(() => setTimeIncreaseEffect(false), 1000);
+  }
+
+  setGameState((prevState) => {
+    const updatedPlayers = prevState.players.map((player) =>
+      player.id === prevState.currentPlayerId
+        ? { ...player, matches: player.matches + 1 }
+        : player
     );
-    playSound(sounds.matchCard);
-    const firstCard = cards.find((card) => card.id === firstCardId);
-    const secondCard = cards.find((card) => card.id === secondCardId);
 
-    if (!firstCard || !secondCard) return;
+    const isCompleted = matchedCards.every((card) => card.isMatched);
+    let winnerName = "";
 
-    const currentMatchTime = Date.now();
-    const timeDifference = Math.abs(previousMatchTime - currentMatchTime);
-    let newTime = countdownTimer;
-
-    if (timeDifference <= 2000) {
-        console.log("Matched quickly");
-        newTime += 3;
-        setTimeIncreaseEffect(true);
-        playSound(sounds.timeBonus);
-        setTimeout(() => setTimeIncreaseEffect(false), 1000);
-    }
-
-    setGameState((prevState) => ({
+    if (isCompleted) {
+      let playersWithScores = updatedPlayers;
+    
+      if (mode === "multi") {
+        playersWithScores = updatedPlayers.map((player) => ({
+          ...player,
+          score: player.matches * 10 - player.moves * 2,
+        }));
+    
+        const sortedPlayers = [...playersWithScores].sort(
+          (a, b) => b.score - a.score || a.moves - b.moves
+        );
+    
+        winnerName = sortedPlayers[0]?.name || "Unknown";
+      } else {
+        const player = updatedPlayers[0];
+        winnerName = player?.name || "Unknown";
+        playersWithScores = [{
+          ...player,
+          score: player.matches * 10 - player.moves * 2,
+        }];
+      }
+    
+      return {
         ...prevState,
         cards: matchedCards,
         flippedCards: [],
-        gameStatus: matchedCards.every((card) => card.isMatched)
-            ? "completed"
-            : "inProgress",
+        players: playersWithScores,
+        gameStatus: "completed",
         countDownTimer: newTime,
-        previousMatchTime: currentMatchTime
-    }));
+        previousMatchTime: currentMatchTime,
+        winner: winnerName,
+      };
+    }
+    
+    return {
+      ...prevState,
+      cards: matchedCards,
+      flippedCards: [],
+      players: updatedPlayers,
+      gameStatus: "inProgress",
+      countDownTimer: newTime,
+      previousMatchTime: currentMatchTime,
+    };
+  });
 };
 
 const resetFlippedCards = (
-    firstCardId: number,
-    secondCardId: number,
-    cards: Card[],
-    setGameState: React.Dispatch<React.SetStateAction<GameState>>
+  firstCardId: number,
+  secondCardId: number,
+  cards: Card[],
+  currentPlayerId: string,
+  mode: GameMode,
+  setGameState: React.Dispatch<React.SetStateAction<GameState>>
 ) => {
-    setTimeout(() => {
-        const resetCards = cards.map((card) =>
-            card.id === firstCardId || card.id === secondCardId
-                ? { ...card, isFlipped: false }
-                : card
-        );
+  setTimeout(() => {
+    setGameState((prevState) => {
+      const resetCards = cards.map((card) =>
+        card.id === firstCardId || card.id === secondCardId
+          ? { ...card, isFlipped: false }
+          : card
+      );
 
-        setGameState((prevState) => ({
-            ...prevState,
-            cards: resetCards,
-            flippedCards: [],
-        }));
-    }, 400);
+      let nextPlayerId = currentPlayerId;
+
+      if (mode === "multi") {
+        nextPlayerId = currentPlayerId === "1" ? "2" : "1";
+      }
+
+      return {
+        ...prevState,
+        cards: resetCards,
+        flippedCards: [],
+        currentPlayerId: nextPlayerId,
+      };
+    });
+  }, 400);
 };
